@@ -51,6 +51,12 @@ function App() {
     setStepNumber(move);
   };
 
+  const startNewGame = () => {
+    setHistory([{ squares: Array(9).fill(null) }]);
+    setXIsNext(true);
+    setStepNumber(0);
+  };
+
   const current = history[stepNumber];
   const winner = calculateWinner(current.squares);
   let status;
@@ -63,7 +69,7 @@ function App() {
       <li key={Math.random()}>
         <button
           type="button"
-          className="waves-effect waves-light btn-small"
+          className="btn z-depth-1 orange lighten-2"
           onClick={() => jumpTo(move)}
         >
           {desc}
@@ -83,14 +89,23 @@ function App() {
   return (
     <div className="game">
       <div className="game-board">
+        <div className="game-controls">
+          <button
+            type="button"
+            className="btn z-depth-1"
+            onClick={startNewGame}
+          >
+            New game
+          </button>
+          <div>{status}</div>
+        </div>
         <Board
           squares={current.squares}
           onClick={handleClick}
           size={size}
         />
       </div>
-      <div className="game-info">
-        <div>{status}</div>
+      <div className="game-history">
         <ul>{moves}</ul>
       </div>
     </div>

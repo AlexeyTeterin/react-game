@@ -12,7 +12,17 @@ body {
   margin: 1rem;
 }
 
-.game-info {
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    margin-bottom: 1rem;
+  }
+}
+
+.game-history {
   display: flex;
   justify-content: center;
   flex-direction: column;

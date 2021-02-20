@@ -10,18 +10,28 @@ body {
   margin: 1rem;
 }
 
-.game-info {
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game-controls button {
+  margin-bottom: 1rem;
+}
+
+.game-history {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
 }
 
-.game-info ul li {
+.game-history ul li {
   text-align: center;
   margin-bottom: 4px;
 }
 
-.game-info ul li button {
+.game-history ul li button {
   width: 100%;
 }
