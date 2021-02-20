@@ -2,61 +2,25 @@
 import * as React from 'react';
 import Square from './Square';
 
-type XO = 'X' | 'O' | null;
+export type XO = 'X' | 'O' | null;
 
 type Props = {
   squares: Array<XO>;
+  onClick: Function;
 }
-
-type State = {
-  squares: Array<XO>;
-  xIsNext: boolean;
-}
-export default class Board extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true,
-    };
-  }
-
-  handleClick = (i: number) => {
-    if (calculateWinner(this.state.squares)) return;
-    if (this.state.squares[i]) return;
-
-    this.setState((prev) => {
-      const squares = [...prev.squares];
-      squares[i] = prev.xIsNext ? 'X' : 'O';
-      return { squares, xIsNext: !prev.xIsNext };
-    });
-  }
-
+export default class Board extends React.Component<Props> {
   renderSquare(i: number) {
     return (
       <Square
-        value={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
       />
     );
   }
 
   render() {
-    const winner = calculateWinner(this.state.squares);
-    const whoIsNext = this.state.xIsNext ? 'X' : 'O';
-    let status;
-
-    if (winner) {
-      status = `Winner is ${winner}`;
-    } else if (isBoardFull(this.state)) {
-      status = 'Draw game';
-    } else {
-      status = `Next player: ${whoIsNext}`;
-    }
-
     return (
       <div>
-        <div className="status">{status}</div>
         <div className="board-row">
           {this.renderSquare(0)}
           {this.renderSquare(1)}
@@ -75,28 +39,4 @@ export default class Board extends React.Component<Props, State> {
       </div>
     );
   }
-}
-
-function calculateWinner(squares: Array<XO>) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i += 1) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
-
-function isBoardFull(state: State) {
-  return state.squares.indexOf(null) === -1;
 }
