@@ -13,10 +13,12 @@ body {
 }
 
 .board-row {
-  margin: 0;
+  margin-bottom: -1px;
   padding: 0;
   height: $size-m;
-  margin-bottom: -1px;
+
+  display: flex;
+  justify-content: center;
 }
 
 .square {
