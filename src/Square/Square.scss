@@ -1,0 +1,15 @@
+$size-s: 4rem;
+$size-m: 6rem;
+$size-l: 8rem;
+
+.square {
+  width: $size-m;
+  height: $size-m;
+  border: 1px solid #999;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 34px;
+  margin-right: -1px;
+  padding: 0;
+  text-align: center;
+}
