@@ -3,7 +3,7 @@ import './Square.scss';
 
 interface IProps {
   value: 'X' | 'O' | null,
-  size: 'sm' | 'm' | 'lg',
+  size: string,
   onClick: () => void,
 }
 

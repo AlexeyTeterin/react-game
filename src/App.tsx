@@ -27,38 +27,31 @@ function isBoardFull(state: {squares: Array<XO>}) {
 }
 
 function App() {
-  const [state, setState] = useState({
-    history: [{ squares: Array(9).fill(null) }],
-    xIsNext: true,
-    stepNumber: 0,
-  });
-  const whoIsNext = state.xIsNext ? 'X' : 'O';
+  const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
+  const [xIsNext, setXIsNext] = useState(true);
+  const [stepNumber, setStepNumber] = useState(0);
+  const [size] = useState('m');
+  const whoIsNext = xIsNext ? 'X' : 'O';
 
   const handleClick = (i: number) => {
-    const history = state.history.slice(0, state.stepNumber + 1);
-    const current = history[history.length - 1];
+    const hist = history.slice(0, stepNumber + 1);
+    const current = hist[hist.length - 1];
     const squares = [...current.squares];
 
     if (calculateWinner(squares) || squares[i]) return;
 
     squares[i] = whoIsNext;
-    setState({
-      history: history.concat([{ squares }]),
-      xIsNext: !state.xIsNext,
-      stepNumber: history.length,
-    });
+    setHistory(hist.concat([{ squares }]));
+    setXIsNext((prev) => !prev);
+    setStepNumber(hist.length);
   };
 
   const jumpTo = (move: number) => {
-    setState({
-      history,
-      xIsNext: (move % 2) === 0,
-      stepNumber: move,
-    });
+    setXIsNext(() => (move % 2) === 0);
+    setStepNumber(move);
   };
 
-  const { history } = state;
-  const current = history[state.stepNumber];
+  const current = history[stepNumber];
   const winner = calculateWinner(current.squares);
   let status;
 
@@ -93,7 +86,7 @@ function App() {
         <Board
           squares={current.squares}
           onClick={handleClick}
-          size="lg"
+          size={size}
         />
       </div>
       <div className="game-info">

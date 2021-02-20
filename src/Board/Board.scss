@@ -1,0 +1,16 @@
+$size-s: 4rem;
+$size-m: 6rem;
+$size-l: 8rem;
+
+.board-row {
+  margin-bottom: -1px;
+  padding: 0;
+  height: $size-m;
+
+  display: flex;
+  justify-content: center;
+
+  &.lg {
+    height: $size-l;
+  }
+}

@@ -1,7 +1,3 @@
-$size-s: 4rem;
-$size-m: 6rem;
-$size-l: 8rem;
-
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -30,13 +26,4 @@ body {
       width: 100%;
     }
   }
-}
-
-.board-row {
-  margin-bottom: -1px;
-  padding: 0;
-  height: $size-m;
-
-  display: flex;
-  justify-content: center;
 }

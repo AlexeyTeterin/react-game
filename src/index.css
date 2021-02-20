@@ -25,11 +25,3 @@ body {
 .game-info ul li button {
   width: 100%;
 }
-
-.board-row {
-  margin-bottom: -1px;
-  padding: 0;
-  height: 6rem;
-  display: flex;
-  justify-content: center;
-}

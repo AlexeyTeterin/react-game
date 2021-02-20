@@ -12,4 +12,9 @@ $size-l: 8rem;
   margin-right: -1px;
   padding: 0;
   text-align: center;
+
+  &.lg {
+    width: $size-l;
+    height: $size-l;
+  }
 }
