@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {
   Button, Slider,
 } from 'antd';
+import { SettingOutlined } from '@ant-design/icons';
 import Board, { XO } from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calculateWinner from './calculateWinner';
@@ -57,11 +58,8 @@ function App() {
     <div className="game">
       <div className="game-board">
         <div className="game-controls">
-          <Button
-            type="default"
-            ghost
-            onClick={startNewGame}
-          >
+          <SettingOutlined className="settingsBtn" />
+          <Button type="default" ghost onClick={startNewGame}>
             New game
           </Button>
           <Slider min={0} max={100} defaultValue={30} />

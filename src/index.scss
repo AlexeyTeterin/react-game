@@ -26,12 +26,32 @@ body {
 .game-controls {
   padding: 1rem;
 
+  position: relative;
+
   display: flex;
   flex-direction: column;
   align-items: center;
 
   button {
     margin-bottom: 1rem;
+  }
+
+  .settingsBtn {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.25s ease-out, opacity 0.1s;
+
+    &:hover {
+      transform: rotate(90deg);
+    }
+
+    &:active {
+      transform: rotate(90deg);
+      opacity: 0.7;
+    }
   }
 }
 
@@ -48,12 +68,4 @@ body {
 
 .ant-slider {
   width: 200px;
-}
-
-.vintage {
-  background-color: #e6d5b8;
-}
-
-.brown {
-  background-color: #4a3933;
 }
