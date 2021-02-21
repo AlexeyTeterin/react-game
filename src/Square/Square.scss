@@ -1,3 +1,5 @@
+@import '../palette.scss';
+
 $size-s: 4rem;
 $size-m: 6rem;
 $size-l: 8rem;
@@ -17,4 +19,12 @@ $size-l: 8rem;
     width: $size-l;
     height: $size-l;
   }
+}
+
+.square.gold {
+  background-color: $pal01-gold;
+}
+
+.square.sand {
+  background-color: $pal01-sand;
 }

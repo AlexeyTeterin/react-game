@@ -14,3 +14,7 @@
   width: 8rem;
   height: 8rem;
 }
+
+.square.gold {
+  background-color: #f0a500;
+}

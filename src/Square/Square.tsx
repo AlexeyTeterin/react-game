@@ -11,7 +11,7 @@ export default function Square(props: IProps) {
   return (
     <button
       type="button"
-      className={`square palette-gold-2 ${props.size}`}
+      className={`square sand ${props.size}`}
       onClick={props.onClick}
     >
       {props.value}
