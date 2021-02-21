@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
 import {
-  Button, Dropdown, Menu, Slider,
-} from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+  Button, MenuItem, Slider,
+} from '@material-ui/core';
+import React, { useState } from 'react';
 import './App.css';
 import Board, { XO } from './Board/Board';
+import MovesDropdown from './MovesDropdown/MovesDropdown';
 
 function calculateWinner(squares: Array<XO>) {
   const lines = [
@@ -37,7 +37,7 @@ function App() {
   const [size] = useState('m');
   const whoIsNext = xIsNext ? 'X' : 'O';
 
-  const handleClick = (i: number) => {
+  const handleSquareClick = (i: number) => {
     const hist = history.slice(0, stepNumber + 1);
     const current = hist[hist.length - 1];
     const squares = [...current.squares];
@@ -65,25 +65,14 @@ function App() {
   const winner = calculateWinner(current.squares);
   let status;
 
-  const movesMenu = () => {
-    const moves = history.map((step, move: number) => {
-      const desc = move
-        ? `Go to move # ${move}`
-        : 'Go to game start';
-      return (
-        <Menu.Item>
-          <Button
-            type="dashed"
-            block
-            onClick={() => jumpTo(move)}
-          >
-            {desc}
-          </Button>
-        </Menu.Item>
-      );
-    });
-    return (<Menu>{moves}</Menu>);
-  };
+  const moves = history.map((step, move: number) => {
+    const desc = move
+      ? `Go to move # ${move}`
+      : 'Go to game start';
+    return (
+      <MenuItem onClick={() => jumpTo(move)}>{desc}</MenuItem>
+    );
+  });
 
   if (winner) {
     status = `Winner is ${winner}`;
@@ -98,7 +87,6 @@ function App() {
       <div className="game-board">
         <div className="game-controls">
           <Button
-            type="primary"
             onClick={startNewGame}
           >
             New game
@@ -108,17 +96,12 @@ function App() {
         </div>
         <Board
           squares={current.squares}
-          onClick={handleClick}
+          onClick={handleSquareClick}
           size={size}
         />
       </div>
       <div className="game-history">
-        <Dropdown overlay={movesMenu} trigger={['click']} placement="bottomCenter">
-          <Button>
-            Moves history
-            <DownOutlined />
-          </Button>
-        </Dropdown>
+        <MovesDropdown moves={moves} />
       </div>
     </div>
   );
