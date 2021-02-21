@@ -6,8 +6,15 @@ body {
   background-color: #fafafa;
 }
 
+#root {
+  display: flex;
+  justify-content: center;
+}
+
 .game {
   margin: 1rem;
+  padding: 1rem;
+  width: fit-content;
 }
 
 .game-controls {
@@ -30,4 +37,12 @@ body {
 
 .ant-slider {
   width: 200px;
+}
+
+.vintage {
+  background-color: #e6d5b8;
+}
+
+.brown {
+  background-color: #4a3933;
 }
