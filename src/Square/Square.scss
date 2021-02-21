@@ -7,17 +7,35 @@ $size-l: 8rem;
 .square {
   width: $size-m;
   height: $size-m;
-  border: 1px solid #999;
+  border: 1px solid $pal01-gold;
+  border-bottom: transparent;
   font-size: 2rem;
   font-weight: bold;
   line-height: 34px;
-  margin-right: -1px;
   padding: 0;
   text-align: center;
+  cursor: pointer;
 
   &.lg {
     width: $size-l;
     height: $size-l;
+  }
+
+  &:nth-child(3) {
+    border-right: transparent;
+  }
+
+  &:first-child {
+    border-left: transparent;
+  }
+
+  &:nth-child(2) {
+    border-left: transparent;
+    border-right: transparent;
+  }
+
+  &:focus {
+    outline: none;
   }
 }
 

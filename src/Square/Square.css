@@ -1,13 +1,14 @@
 .square {
   width: 6rem;
   height: 6rem;
-  border: 1px solid #999;
+  border: 1px solid #f0a500;
+  border-bottom: transparent;
   font-size: 2rem;
   font-weight: bold;
   line-height: 34px;
-  margin-right: -1px;
   padding: 0;
   text-align: center;
+  cursor: pointer;
 }
 
 .square.lg {
@@ -15,6 +16,27 @@
   height: 8rem;
 }
 
+.square:nth-child(3) {
+  border-right: transparent;
+}
+
+.square:first-child {
+  border-left: transparent;
+}
+
+.square:nth-child(2) {
+  border-left: transparent;
+  border-right: transparent;
+}
+
+.square:focus {
+  outline: none;
+}
+
 .square.gold {
   background-color: #f0a500;
+}
+
+.square.sand {
+  background-color: #e6d5b8;
 }

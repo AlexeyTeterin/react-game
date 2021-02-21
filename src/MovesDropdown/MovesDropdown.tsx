@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './MovesDropdown.css';
-import { Button, Dropdown, Menu } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Dropdown, Menu, Button } from 'antd';
+import { UndoOutlined } from '@ant-design/icons';
 
 interface IProps {
   history: { squares: any[]; }[];
@@ -24,11 +24,16 @@ export default function MovesDropdown(props: IProps) {
   };
 
   return (
-    <Dropdown overlay={movesMenu} trigger={['click']} placement="bottomCenter">
-      <Button>
+    <Dropdown
+      overlay={movesMenu}
+      trigger={['click']}
+      placement="bottomCenter"
+      className="MovesDropdown"
+    >
+      <Button type="dashed" ghost icon={<UndoOutlined />}>
         Moves history
-        <DownOutlined />
       </Button>
+
     </Dropdown>
   );
 }
