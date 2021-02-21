@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import {
   Button, Slider,
 } from 'antd';
-import { SettingOutlined } from '@ant-design/icons';
 import Board, { XO } from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calculateWinner from './calculateWinner';
+import SettingsPopover from './SettingsPopover/SettingsPopover';
 
 function isBoardFull(state: {squares: Array<XO>}) {
   return state.squares.indexOf(null) === -1;
@@ -58,7 +58,8 @@ function App() {
     <div className="game">
       <div className="game-board">
         <div className="game-controls">
-          <SettingOutlined className="settingsBtn" />
+          {/* <SettingOutlined className="settingsBtn" /> */}
+          <SettingsPopover />
           <Button type="default" ghost onClick={startNewGame}>
             New game
           </Button>
