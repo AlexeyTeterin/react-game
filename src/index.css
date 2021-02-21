@@ -28,15 +28,6 @@ body {
   align-items: center;
 }
 
-.game-history ul li {
-  text-align: center;
-  margin-bottom: 4px;
-}
-
-.game-history ul li button {
-  width: 100%;
-}
-
 .ant-slider {
   width: 200px;
 }

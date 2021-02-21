@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-import { Button, Slider } from 'antd';
+import {
+  Button, Dropdown, Menu, Slider,
+} from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 import './App.css';
 import Board, { XO } from './Board/Board';
 
@@ -62,21 +65,25 @@ function App() {
   const winner = calculateWinner(current.squares);
   let status;
 
-  const moves = history.map((step, move: number) => {
-    const desc = move
-      ? `Go to move # ${move}`
-      : 'To game start';
-    return (
-      <li key={Math.random()}>
-        <Button
-          type="dashed"
-          onClick={() => jumpTo(move)}
-        >
-          {desc}
-        </Button>
-      </li>
-    );
-  });
+  const movesMenu = () => {
+    const moves = history.map((step, move: number) => {
+      const desc = move
+        ? `Go to move # ${move}`
+        : 'Go to game start';
+      return (
+        <Menu.Item>
+          <Button
+            type="dashed"
+            block
+            onClick={() => jumpTo(move)}
+          >
+            {desc}
+          </Button>
+        </Menu.Item>
+      );
+    });
+    return (<Menu>{moves}</Menu>);
+  };
 
   if (winner) {
     status = `Winner is ${winner}`;
@@ -106,7 +113,12 @@ function App() {
         />
       </div>
       <div className="game-history">
-        <ul>{moves}</ul>
+        <Dropdown overlay={movesMenu} trigger={['click']} placement="bottomCenter">
+          <Button>
+            Moves history
+            <DownOutlined />
+          </Button>
+        </Dropdown>
       </div>
     </div>
   );
