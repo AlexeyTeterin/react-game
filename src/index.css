@@ -21,6 +21,7 @@ body {
 }
 
 .game-history {
+  margin: 1rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -34,4 +35,8 @@ body {
 
 .game-history ul li button {
   width: 100%;
+}
+
+.ant-slider {
+  width: 200px;
 }

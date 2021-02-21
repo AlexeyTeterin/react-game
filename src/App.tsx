@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button, Slider } from 'antd';
 import './App.css';
 import Board, { XO } from './Board/Board';
 
@@ -67,13 +68,12 @@ function App() {
       : 'To game start';
     return (
       <li key={Math.random()}>
-        <button
-          type="button"
-          className="btn z-depth-1 orange lighten-2"
+        <Button
+          type="dashed"
           onClick={() => jumpTo(move)}
         >
           {desc}
-        </button>
+        </Button>
       </li>
     );
   });
@@ -90,13 +90,13 @@ function App() {
     <div className="game">
       <div className="game-board">
         <div className="game-controls">
-          <button
-            type="button"
-            className="btn z-depth-1"
+          <Button
+            type="primary"
             onClick={startNewGame}
           >
             New game
-          </button>
+          </Button>
+          <Slider min={0} max={100} defaultValue={30} />
           <div>{status}</div>
         </div>
         <Board
