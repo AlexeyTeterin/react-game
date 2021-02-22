@@ -20,11 +20,21 @@ const App: React.FC = () => {
   const [stepNumber, setStepNumber] = useState<number>(0);
   const [size] = useState<sizes>('m');
   const [theme, setTheme] = useState<themes>('Autumn');
+  const [darkMode, setDarkMode] = useState<boolean>(false);
   const whoIsNext = xIsNext ? 'X' : 'O';
 
   const handleThemeChange = (event: RadioChangeEvent) => {
     const target = event.target!;
     setTheme(target.value);
+  };
+
+  const handleDarkModeChange = () => {
+    setDarkMode(!darkMode);
+    if (!darkMode) {
+      document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
+    }
   };
 
   const handleClick = (i: number) => {
@@ -70,6 +80,8 @@ const App: React.FC = () => {
           <SettingsPopover
             themeSelect={theme}
             onThemeChange={handleThemeChange}
+            isDark={darkMode}
+            onDarkModeChange={handleDarkModeChange}
           />
           <Button type="default" ghost onClick={startNewGame}>
             New game

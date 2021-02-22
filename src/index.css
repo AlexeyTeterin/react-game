@@ -6,6 +6,10 @@ body {
   background-color: #fafafa;
 }
 
+body.dark {
+  background-color: #202020;
+}
+
 #root {
   display: flex;
   justify-content: center;
