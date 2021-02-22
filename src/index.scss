@@ -1,5 +1,20 @@
 @import './palette.scss';
 
+@mixin shadow($color) {
+  box-shadow: 0px 0px 16px -4px $color;
+}
+
+@mixin applyTheme($primary, $secondary, $select) {
+  background-color: $primary;
+  @include shadow($select);
+
+  .game-history {
+    background-color: $secondary;
+  }
+}
+
+$bg-light: #fafafa;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -7,7 +22,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #fafafa;
+  background-color: $bg-light;
 }
 
 #root {
@@ -18,9 +33,7 @@ body {
 .game {
   margin: 1rem;
   width: fit-content;
-
-  background-color: $pal01-gold;
-  box-shadow: 0px 0px 12px 1px $pal01-brown;
+  border: 1px solid $bg-light;
 }
 
 .game-controls {
@@ -62,10 +75,16 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
-  background-color: $pal01-orange;
 }
 
-.ant-slider {
-  width: 200px;
+.game.Autumn {
+  @include applyTheme($autumn-primary, $autumn-secondary, $autumn-select);
+}
+
+.game.Winter {
+  @include applyTheme($winter-primary, $winter-secondary, $winter-select);
+}
+
+.game.Spring {
+  @include applyTheme($spring-primary, $spring-secondary, $spring-select);
 }

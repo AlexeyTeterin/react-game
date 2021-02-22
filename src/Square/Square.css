@@ -1,7 +1,7 @@
 .square {
   width: 6rem;
   height: 6rem;
-  border: 1px solid #f0a500;
+  border: 1px solid;
   border-bottom: transparent;
   font-size: 2rem;
   font-weight: bold;
@@ -33,10 +33,17 @@
   outline: none;
 }
 
-.square.gold {
-  background-color: #f0a500;
+.game.Autumn .square {
+  background-color: #e6d5b8;
+  border-color: #f0a500;
 }
 
-.square.sand {
-  background-color: #e6d5b8;
+.game.Winter .square {
+  background-color: #f1f3f4;
+  border-color: #79bac1;
+}
+
+.game.Spring .square {
+  background-color: #edf492;
+  border-color: #a8df65;
 }

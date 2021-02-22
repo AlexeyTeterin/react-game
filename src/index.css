@@ -14,8 +14,7 @@ body {
 .game {
   margin: 1rem;
   width: fit-content;
-  background-color: #f0a500;
-  box-shadow: 0px 0px 12px 1px #4a3933;
+  border: 1px solid #fafafa;
 }
 
 .game-controls {
@@ -54,9 +53,31 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+}
+
+.game.Autumn {
+  background-color: #f0a500;
+  box-shadow: 0px 0px 16px -4px #4a3933;
+}
+
+.game.Autumn .game-history {
   background-color: #e45826;
 }
 
-.ant-slider {
-  width: 200px;
+.game.Winter {
+  background-color: #79bac1;
+  box-shadow: 0px 0px 16px -4px #512b58;
+}
+
+.game.Winter .game-history {
+  background-color: #2a7886;
+}
+
+.game.Spring {
+  background-color: #a3de83;
+  box-shadow: 0px 0px 16px -4px #ff5d6e;
+}
+
+.game.Spring .game-history {
+  background-color: #2eb872;
 }

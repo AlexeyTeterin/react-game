@@ -1,19 +1,22 @@
 /* eslint-disable class-methods-use-this */
 import * as React from 'react';
+import { sizes, themes } from '../App';
 import Square from '../Square/Square';
 import './Board.scss';
 
 export type XO = 'X' | 'O' | null;
 
 type Props = {
-  squares: Array<XO>;
+  theme: themes;
+  squares: XO[];
   onClick: Function;
-  size: string;
+  size: sizes;
 }
 export default class Board extends React.Component<Props> {
   renderSquare(i: number) {
     return (
       <Square
+        theme={this.props.theme}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
         size={this.props.size}

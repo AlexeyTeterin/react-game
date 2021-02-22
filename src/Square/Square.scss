@@ -7,7 +7,7 @@ $size-l: 8rem;
 .square {
   width: $size-m;
   height: $size-m;
-  border: 1px solid $pal01-gold;
+  border: 1px solid;
   border-bottom: transparent;
   font-size: 2rem;
   font-weight: bold;
@@ -39,10 +39,19 @@ $size-l: 8rem;
   }
 }
 
-.square.gold {
-  background-color: $pal01-gold;
+.game.Autumn .square {
+  background-color: $autumn-bright;
+  border-color: $autumn-primary;
 }
 
-.square.sand {
-  background-color: $pal01-sand;
+.game.Winter .square {
+  background-color: $winter-bright;
+  border-color: $winter-primary;
 }
+
+.game.Spring .square {
+  background-color: $spring-bright;
+  border-color: $spring-primary;
+}
+
+.game.Spring .square {}
