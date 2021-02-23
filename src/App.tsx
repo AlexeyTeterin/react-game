@@ -42,8 +42,15 @@ const App: React.FC = () => {
 
   const handleSoundToggle = () => {
     setSoundOptions((prev) => ({
-      volume: prev.volume,
       soundEnabled: !prev.soundEnabled,
+      volume: prev.volume > 0 ? prev.volume : 0.75,
+    }));
+  };
+
+  const handleSoundVolumeChange = (value: number) => {
+    setSoundOptions(() => ({
+      soundEnabled: value > 0,
+      volume: value / 100,
     }));
   };
 
@@ -94,7 +101,9 @@ const App: React.FC = () => {
             isDark={darkMode}
             onDarkModeChange={handleDarkModeChange}
             isSound={soundOptions.soundEnabled}
+            soundVolume={soundOptions.volume}
             onSoundToggle={handleSoundToggle}
+            onSoundSliderChange={handleSoundVolumeChange}
           />
           <Button type="default" ghost onClick={startNewGame}>
             New game

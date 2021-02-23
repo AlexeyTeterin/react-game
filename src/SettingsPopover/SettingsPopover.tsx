@@ -3,7 +3,7 @@ import {
   CloseOutlined, SettingOutlined, SoundOutlined,
 } from '@ant-design/icons';
 import {
-  Popover, Radio, RadioChangeEvent, Switch,
+  Popover, Radio, RadioChangeEvent, Slider, Switch,
 } from 'antd';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
@@ -17,7 +17,9 @@ interface IProps {
   isDark: boolean;
   onDarkModeChange: SwitchChangeEventHandler;
   isSound: boolean;
+  soundVolume: number;
   onSoundToggle: SwitchChangeEventHandler;
+  onSoundSliderChange: (value: number) => void;
 }
 
 export default function SettingsPopover(props: IProps) {
@@ -42,8 +44,13 @@ export default function SettingsPopover(props: IProps) {
       <Switch
         checkedChildren={<SoundOutlined />}
         unCheckedChildren={<CloseOutlined />}
-        defaultChecked={props.isSound}
+        checked={props.isSound}
         onChange={props.onSoundToggle}
+      />
+      <Slider
+        disabled={!props.isSound}
+        value={props.soundVolume * 100}
+        onChange={props.onSoundSliderChange}
       />
     </div>
   );
