@@ -3,7 +3,7 @@ import {
   Button, RadioChangeEvent,
 } from 'antd';
 import useSound from 'use-sound';
-import clickSound from './assets/click.ogg';
+import sounds from './assets/sounds';
 import Board, { XO } from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calculateWinner from './calculateWinner';
@@ -27,7 +27,8 @@ const App: React.FC = () => {
     volume: 1,
     soundEnabled: true,
   });
-  const [playClickSound] = useSound(clickSound, soundOptions);
+  const [playClickSound] = useSound(sounds.click, soundOptions);
+  const [playWinSound] = useSound(sounds.win, soundOptions);
   const whoIsNext = xIsNext ? 'X' : 'O';
 
   const handleThemeChange = (event: RadioChangeEvent) => {
@@ -56,8 +57,8 @@ const App: React.FC = () => {
 
   const handleSquareClick = (i: number) => {
     const hist = history.slice(0, stepNumber + 1);
-    const current = hist[hist.length - 1];
-    const squares = [...current.squares];
+    const curr = hist[hist.length - 1];
+    const squares = [...curr.squares];
 
     if (calculateWinner(squares) || squares[i]) return;
 
@@ -66,6 +67,8 @@ const App: React.FC = () => {
     setXIsNext((prev) => !prev);
     setStepNumber(hist.length);
     playClickSound();
+
+    if (calculateWinner(squares)) playWinSound();
   };
 
   const jumpTo = (move: number) => {
