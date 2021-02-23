@@ -16,11 +16,11 @@ interface IProps {
   onThemeChange: (e: RadioChangeEvent) => void;
   isDark: boolean;
   onDarkModeChange: SwitchChangeEventHandler;
+  isSound: boolean;
+  onSoundToggle: SwitchChangeEventHandler;
 }
 
 export default function SettingsPopover(props: IProps) {
-  const isSound = () => true;
-
   const settings = (
     <div>
       <Title level={5}>Theme: </Title>
@@ -42,7 +42,8 @@ export default function SettingsPopover(props: IProps) {
       <Switch
         checkedChildren={<SoundOutlined />}
         unCheckedChildren={<CloseOutlined />}
-        defaultChecked={isSound()}
+        defaultChecked={props.isSound}
+        onChange={props.onSoundToggle}
       />
     </div>
   );

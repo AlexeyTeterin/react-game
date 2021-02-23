@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import {
   Button, RadioChangeEvent,
 } from 'antd';
+import useSound from 'use-sound';
+import clickSound from './assets/click.ogg';
 import Board, { XO } from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calculateWinner from './calculateWinner';
@@ -21,6 +23,11 @@ const App: React.FC = () => {
   const [size] = useState<sizes>('m');
   const [theme, setTheme] = useState<themes>('Autumn');
   const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [soundOptions, setSoundOptions] = useState({
+    volume: 1,
+    soundEnabled: true,
+  });
+  const [playClickSound] = useSound(clickSound, soundOptions);
   const whoIsNext = xIsNext ? 'X' : 'O';
 
   const handleThemeChange = (event: RadioChangeEvent) => {
@@ -30,14 +37,17 @@ const App: React.FC = () => {
 
   const handleDarkModeChange = () => {
     setDarkMode(!darkMode);
-    if (!darkMode) {
-      document.body.classList.add('dark');
-    } else {
-      document.body.classList.remove('dark');
-    }
+    document.body.classList.toggle('dark');
   };
 
-  const handleClick = (i: number) => {
+  const handleSoundToggle = () => {
+    setSoundOptions((prev) => ({
+      volume: prev.volume,
+      soundEnabled: !prev.soundEnabled,
+    }));
+  };
+
+  const handleSquareClick = (i: number) => {
     const hist = history.slice(0, stepNumber + 1);
     const current = hist[hist.length - 1];
     const squares = [...current.squares];
@@ -48,6 +58,7 @@ const App: React.FC = () => {
     setHistory(hist.concat([{ squares }]));
     setXIsNext((prev) => !prev);
     setStepNumber(hist.length);
+    playClickSound();
   };
 
   const jumpTo = (move: number) => {
@@ -82,6 +93,8 @@ const App: React.FC = () => {
             onThemeChange={handleThemeChange}
             isDark={darkMode}
             onDarkModeChange={handleDarkModeChange}
+            isSound={soundOptions.soundEnabled}
+            onSoundToggle={handleSoundToggle}
           />
           <Button type="default" ghost onClick={startNewGame}>
             New game
@@ -91,7 +104,7 @@ const App: React.FC = () => {
         <Board
           theme={theme}
           squares={current.squares}
-          onClick={handleClick}
+          onClick={handleSquareClick}
           size={size}
         />
       </div>
