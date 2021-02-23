@@ -10,6 +10,7 @@ import Title from 'antd/lib/typography/Title';
 import * as React from 'react';
 import { SwitchChangeEventHandler } from 'antd/lib/switch';
 import { themes } from '../App';
+import './SettingsPopover.scss';
 
 interface IProps {
   themeSelect: themes;
@@ -24,7 +25,7 @@ interface IProps {
 
 export default function SettingsPopover(props: IProps) {
   const settings = (
-    <div>
+    <div className="settings">
       <Title level={5}>Theme: </Title>
       <Radio.Group value={props.themeSelect} onChange={props.onThemeChange}>
         <Radio.Button value="Autumn">Autumn</Radio.Button>
@@ -41,17 +42,20 @@ export default function SettingsPopover(props: IProps) {
       />
       <p />
       <Title level={5}>Sound:</Title>
-      <Switch
-        checkedChildren={<SoundOutlined />}
-        unCheckedChildren={<CloseOutlined />}
-        checked={props.isSound}
-        onChange={props.onSoundToggle}
-      />
-      <Slider
-        disabled={!props.isSound}
-        value={props.soundVolume * 100}
-        onChange={props.onSoundSliderChange}
-      />
+      <div className="settings__sound">
+        <Switch
+          checkedChildren={<SoundOutlined />}
+          unCheckedChildren={<CloseOutlined />}
+          checked={props.isSound}
+          onChange={props.onSoundToggle}
+        />
+        <Slider
+          disabled={!props.isSound}
+          value={props.soundVolume * 100}
+          onChange={props.onSoundSliderChange}
+        />
+      </div>
+
     </div>
   );
   return (

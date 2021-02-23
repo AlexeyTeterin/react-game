@@ -1,0 +1,9 @@
+.settings__sound {
+  display: flex;
+  align-items: center;
+}
+
+.settings__sound div:last-child {
+  margin-left: 20px;
+  width: 100%;
+}
