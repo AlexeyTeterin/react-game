@@ -27,10 +27,10 @@ export default function SettingsPopover(props: IProps) {
   const settings = (
     <div className="settings">
       <Title level={5}>Theme: </Title>
-      <Radio.Group value={props.themeSelect} onChange={props.onThemeChange}>
-        <Radio.Button value="Autumn">Autumn</Radio.Button>
-        <Radio.Button value="Winter">Winter</Radio.Button>
-        <Radio.Button value="Spring">Spring</Radio.Button>
+      <Radio.Group buttonStyle="solid" value={props.themeSelect} onChange={props.onThemeChange}>
+        <Radio.Button className="Autumn" value="Autumn">Autumn</Radio.Button>
+        <Radio.Button className="Winter" value="Winter">Winter</Radio.Button>
+        <Radio.Button className="Spring" value="Spring">Spring</Radio.Button>
       </Radio.Group>
       <p />
       <Title level={5}>Dark mode:</Title>

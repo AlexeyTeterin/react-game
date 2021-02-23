@@ -7,3 +7,15 @@
   margin-left: 20px;
   width: 100%;
 }
+
+.ant-radio-button-wrapper.Autumn {
+  background-color: #f0a500 !important;
+}
+
+.ant-radio-button-wrapper.Winter {
+  background-color: #79bac1 !important;
+}
+
+.ant-radio-button-wrapper.Spring {
+  background-color: #a3de83 !important;
+}
