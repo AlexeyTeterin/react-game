@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import * as React from 'react';
-import { sizes, themes } from '../App';
+import { sizes, themes } from '../Game';
 import Square from '../Square/Square';
 import './Board.scss';
 
@@ -8,7 +8,7 @@ export type XO = 'X' | 'O' | null;
 
 type Props = {
   theme: themes;
-  squares: XO[];
+  squares: any[];
   onClick: Function;
   size: sizes;
 }

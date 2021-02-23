@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { themes } from '../App';
+import { themes } from '../Game';
 import './Square.scss';
 
 interface IProps {

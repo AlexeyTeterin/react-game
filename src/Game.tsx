@@ -8,6 +8,7 @@ import Board, { XO } from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calculateWinner from './calculateWinner';
 import SettingsPopover from './SettingsPopover/SettingsPopover';
+import EMOJI, { convertToEmoji } from './emoji';
 
 function isBoardFull(state: {squares: XO[]}) {
   return state.squares.indexOf(null) === -1;
@@ -27,12 +28,13 @@ const App: React.FC = () => {
     volume: 1,
     soundEnabled: true,
   });
+  const [symbols, setSymbols] = useState(EMOJI.simple);
   const [playClickSound] = useSound(sounds.click, soundOptions);
   const [playWinSound] = useSound(sounds.win, soundOptions);
-  const whoIsNext = xIsNext ? 'X' : 'O';
+  const whoIsNext = xIsNext ? symbols.x : symbols.o;
 
   const handleThemeChange = (event: RadioChangeEvent) => {
-    const target = event.target!;
+    const { target } = event;
     setTheme(target.value);
   };
 
@@ -55,6 +57,11 @@ const App: React.FC = () => {
     }));
   };
 
+  const handleSymbolsChange = (event: RadioChangeEvent) => {
+    const { target } = event;
+    setSymbols(target.value);
+  };
+
   const handleSquareClick = (i: number) => {
     const hist = history.slice(0, stepNumber + 1);
     const curr = hist[hist.length - 1];
@@ -62,7 +69,7 @@ const App: React.FC = () => {
 
     if (calculateWinner(squares) || squares[i]) return;
 
-    squares[i] = whoIsNext;
+    squares[i] = xIsNext ? 'X' : 'O';
     setHistory(hist.concat([{ squares }]));
     setXIsNext((prev) => !prev);
     setStepNumber(hist.length);
@@ -86,8 +93,10 @@ const App: React.FC = () => {
   const winner = calculateWinner(current.squares);
   let status;
 
+  const formatSquares = (squares: XO[]) => squares.map((el) => convertToEmoji(el, symbols));
+
   if (winner) {
-    status = `Winner is ${winner}`;
+    status = `Winner is ${convertToEmoji(winner, symbols)}`;
   } else if (isBoardFull(current)) {
     status = 'Draw game';
   } else {
@@ -107,6 +116,8 @@ const App: React.FC = () => {
             soundVolume={soundOptions.volume}
             onSoundToggle={handleSoundToggle}
             onSoundSliderChange={handleSoundVolumeChange}
+            symbols={symbols}
+            onSymbolsChange={handleSymbolsChange}
           />
           <Button type="default" ghost onClick={startNewGame}>
             New game
@@ -115,7 +126,7 @@ const App: React.FC = () => {
         </div>
         <Board
           theme={theme}
-          squares={current.squares}
+          squares={formatSquares(current.squares)}
           onClick={handleSquareClick}
           size={size}
         />
