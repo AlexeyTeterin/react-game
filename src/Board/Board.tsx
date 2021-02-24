@@ -16,11 +16,11 @@ type Props = {
 
 const Board: React.FC<Props> = (props: Props) => {
   const squares = document.querySelectorAll('.square');
-  const { wonIndexes: winner } = props;
+  const { wonIndexes } = props;
 
   useEffect(() => {
-    if (winner) {
-      const wonSquares = winner.map((wonIndex: number) => document.querySelector(`#square${wonIndex}`));
+    if (wonIndexes) {
+      const wonSquares = wonIndexes.map((wonIndex: number) => document.querySelector(`#square${wonIndex}`));
       wonSquares.forEach((square) => setTimeout(() => {
         square?.classList.add('winner');
       }, 300));
