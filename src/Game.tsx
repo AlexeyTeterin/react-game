@@ -8,7 +8,7 @@ import Board, { XO } from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calculateWinner from './calculateWinner';
 import SettingsPopover from './SettingsPopover/SettingsPopover';
-import EMOJI, { convertToEmoji } from './emoji';
+import EMOJI, { convertToEmoji, emojiSetNames, emojiSet } from './emoji';
 
 function isBoardFull(state: {squares: XO[]}) {
   return state.squares.indexOf(null) === -1;
@@ -28,10 +28,11 @@ const App: React.FC = () => {
     volume: 1,
     soundEnabled: true,
   });
-  const [symbols, setSymbols] = useState(EMOJI.simple);
+  const [emojisName, setEmojisName] = useState<emojiSetNames>('simple');
+  const [emojis, setEmojis] = useState<emojiSet>(EMOJI[emojisName]);
   const [playClickSound] = useSound(sounds.click, soundOptions);
   const [playWinSound] = useSound(sounds.win, soundOptions);
-  const whoIsNext = xIsNext ? symbols.x : symbols.o;
+  const whoIsNext = xIsNext ? emojis.x : emojis.o;
 
   const handleThemeChange = (event: RadioChangeEvent) => {
     const { target } = event;
@@ -58,8 +59,9 @@ const App: React.FC = () => {
   };
 
   const handleSymbolsChange = (event: RadioChangeEvent) => {
-    const { target } = event;
-    setSymbols(target.value);
+    const targetSetName: emojiSetNames = event.target.value;
+    setEmojisName(targetSetName);
+    setEmojis(EMOJI[targetSetName]);
   };
 
   const handleSquareClick = (i: number) => {
@@ -93,10 +95,10 @@ const App: React.FC = () => {
   const winner = calculateWinner(current.squares);
   let status;
 
-  const formatSquares = (squares: XO[]) => squares.map((el) => convertToEmoji(el, symbols));
+  const formatSquares = (squares: XO[]) => squares.map((el) => convertToEmoji(el, emojis));
 
   if (winner) {
-    status = `Winner is ${convertToEmoji(winner, symbols)}`;
+    status = `Winner is ${convertToEmoji(winner, emojis)}`;
   } else if (isBoardFull(current)) {
     status = 'Draw game';
   } else {
@@ -116,7 +118,7 @@ const App: React.FC = () => {
             soundVolume={soundOptions.volume}
             onSoundToggle={handleSoundToggle}
             onSoundSliderChange={handleSoundVolumeChange}
-            symbols={symbols}
+            emojiSetName={emojisName}
             onSymbolsChange={handleSymbolsChange}
           />
           <Button type="default" ghost onClick={startNewGame}>

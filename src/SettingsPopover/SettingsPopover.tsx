@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import * as React from 'react';
 import {
   CloseOutlined, SettingOutlined, SoundOutlined,
 } from '@ant-design/icons';
@@ -7,11 +8,10 @@ import {
 } from 'antd';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
-import * as React from 'react';
 import { SwitchChangeEventHandler } from 'antd/lib/switch';
 import { themes } from '../Game';
 import './SettingsPopover.scss';
-import EMOJI, { setOfEmoji } from '../emoji';
+import { emojiSetNames } from '../emoji';
 
 interface IProps {
   themeSelect: themes;
@@ -22,7 +22,7 @@ interface IProps {
   soundVolume: number;
   onSoundToggle: SwitchChangeEventHandler;
   onSoundSliderChange: (value: number) => void;
-  symbols: setOfEmoji;
+  emojiSetName: emojiSetNames;
   onSymbolsChange: (e: RadioChangeEvent) => void;
 }
 
@@ -66,12 +66,12 @@ export default function SettingsPopover(props: IProps) {
       <Title level={5}>Symbols: </Title>
       <Radio.Group
         buttonStyle="outline"
-        value={props.symbols}
+        value={props.emojiSetName}
         onChange={props.onSymbolsChange}
       >
-        <Radio.Button className="symbols" value={EMOJI.simple}>❌ ⭕</Radio.Button>
-        <Radio.Button className="symbols" value={EMOJI.nature}>❄️ 🌸</Radio.Button>
-        <Radio.Button className="symbols" value={EMOJI.danger}>☠️ ☢️</Radio.Button>
+        <Radio.Button className="emojis" value="simple">❌ ⭕</Radio.Button>
+        <Radio.Button className="emojis" value="nature">❄️ 🌸</Radio.Button>
+        <Radio.Button className="emojis" value="danger">☠️ ☢️</Radio.Button>
       </Radio.Group>
     </div>
   );

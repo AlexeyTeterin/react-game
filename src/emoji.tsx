@@ -1,14 +1,20 @@
 import { XO } from './Board/Board';
 
-export type setOfEmoji = { x: string, o: string };
+export type emojiSetNames = 'simple' | 'nature' | 'danger';
 
-const EMOJI = {
+export type emojiSet = { x: string, o: string };
+
+export interface IEmoji {
+  [propName: string]: emojiSet;
+}
+
+const EMOJI: IEmoji = {
   simple: { x: '❌', o: '⭕' },
   nature: { x: '❄️', o: '🌸' },
   danger: { x: '☠️', o: '☢️' },
 };
 
-export const convertToEmoji = (value: XO, set: setOfEmoji) => {
+export const convertToEmoji = (value: XO, set: emojiSet) => {
   if (value === 'X') return set.x;
   if (value === 'O') return set.o;
   return null;
