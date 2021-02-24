@@ -6,12 +6,17 @@
   height: $size-m;
   border: 1px solid;
   border-bottom: transparent;
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: bold;
   line-height: 34px;
   padding: 0;
   text-align: center;
   cursor: pointer;
+  transition: font 0.5s ease;
+
+  &.animate {
+    font-size: 4rem;
+  }
 
   &.large {
     width: $size-l;
