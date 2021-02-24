@@ -76,6 +76,7 @@ const App: React.FC = () => {
     setXIsNext((prev) => !prev);
     setStepNumber(hist.length);
     playClickSound();
+    console.log(i);
 
     if (calculateWinner(squares)) playWinSound();
   };

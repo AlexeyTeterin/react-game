@@ -13,7 +13,7 @@ export default function Square(props: IProps) {
   return (
     <button
       type="button"
-      className={`square ${props.size} ${props.theme}`}
+      className={`square ${props.size} ${props.theme} animate`}
       onClick={props.onClick}
     >
       {props.value}
