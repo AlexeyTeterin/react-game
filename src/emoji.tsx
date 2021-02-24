@@ -1,4 +1,4 @@
-import { XO } from './Board/Board';
+import { XO } from './Square/Square';
 
 export type emojiSetNames = 'simple' | 'nature' | 'danger';
 

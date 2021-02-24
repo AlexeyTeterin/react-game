@@ -6,8 +6,6 @@ import { themes } from '../Game';
 import Square, { sizes } from '../Square/Square';
 import './Board.scss';
 
-export type XO = 'X' | 'O' | null;
-
 type Props = {
   theme: themes;
   squares: any[];

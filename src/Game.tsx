@@ -4,12 +4,12 @@ import {
 } from 'antd';
 import useSound from 'use-sound';
 import sounds from './assets/sounds';
-import Board, { XO } from './Board/Board';
+import Board from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calculateWinner from './calculateWinner';
 import SettingsPopover from './SettingsPopover/SettingsPopover';
 import EMOJI, { convertToEmoji, emojiSetNames, emojiSet } from './emoji';
-import { sizes } from './Square/Square';
+import { sizes, XO } from './Square/Square';
 
 function isBoardFull(state: {squares: XO[]}) {
   return state.squares.indexOf(null) === -1;

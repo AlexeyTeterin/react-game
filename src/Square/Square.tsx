@@ -3,8 +3,9 @@ import { themes } from '../Game';
 import './Square.scss';
 
 export type sizes = 'small' | 'medium' | 'large';
+export type XO = 'X' | 'O' | null;
 interface IProps {
-  value: 'X' | 'O' | null,
+  value: XO,
   size: sizes,
   theme: themes,
   onClick: () => void,

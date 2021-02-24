@@ -1,4 +1,4 @@
-import { XO } from './Board/Board';
+import { XO } from './Square/Square';
 
 export default function calculateWinner(squares: Array<XO>) {
   const lines = [
