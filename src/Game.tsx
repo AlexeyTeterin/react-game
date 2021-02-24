@@ -64,7 +64,7 @@ const App: React.FC = () => {
     setEmojis(EMOJI[targetSetName]);
   };
 
-  const handleSquareClick = (i: number, row: number) => {
+  const handleSquareClick = (i: number) => {
     const hist = history.slice(0, stepNumber + 1);
     const curr = hist[hist.length - 1];
     const squares = [...curr.squares];
@@ -76,7 +76,6 @@ const App: React.FC = () => {
     setXIsNext((prev) => !prev);
     setStepNumber(hist.length);
     playClickSound();
-    document.querySelector('.board')?.children[row].children[(i % 3)].classList.add('animate');
 
     if (calculateWinner(squares)) playWinSound();
   };
