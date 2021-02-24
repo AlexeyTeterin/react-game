@@ -15,7 +15,21 @@
   transition: font 0.5s ease;
 
   &.animate {
-    font-size: 4rem;
+    animation: spin 0.3s ease 1;
+
+    @keyframes spin {
+      0% {
+        font-size: 2rem;
+      }
+
+      50% {
+        font-size: 4rem;
+      }
+
+      100% {
+        font-size: 2rem;
+      }
+    }
   }
 
   &.large {

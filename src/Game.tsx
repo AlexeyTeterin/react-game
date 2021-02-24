@@ -76,7 +76,7 @@ const App: React.FC = () => {
     setXIsNext((prev) => !prev);
     setStepNumber(hist.length);
     playClickSound();
-    document.querySelector('.board')?.children[row].children[(i % 3)].classList.remove('animate');
+    document.querySelector('.board')?.children[row].children[(i % 3)].classList.add('animate');
 
     if (calculateWinner(squares)) playWinSound();
   };
