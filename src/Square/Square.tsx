@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { themes } from '../Game';
+import { sizes, themes } from '../Game';
 import './Square.scss';
 
 interface IProps {
   value: 'X' | 'O' | null,
-  size: string,
+  size: sizes,
   theme: themes,
   onClick: () => void,
 }

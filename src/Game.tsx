@@ -14,14 +14,14 @@ function isBoardFull(state: {squares: XO[]}) {
   return state.squares.indexOf(null) === -1;
 }
 
-export type sizes = 'sm' | 'm' | 'lg';
+export type sizes = 'small' | 'medium' | 'large';
 export type themes = 'Autumn' | 'Winter' | 'Spring';
 
 const App: React.FC = () => {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [stepNumber, setStepNumber] = useState<number>(0);
-  const [size] = useState<sizes>('m');
+  const [squareSize, setSquareSize] = useState<sizes>('small');
   const [theme, setTheme] = useState<themes>('Autumn');
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [soundOptions, setSoundOptions] = useState({
@@ -80,6 +80,8 @@ const App: React.FC = () => {
     if (calculateWinner(squares)) playWinSound();
   };
 
+  const handleSquareSizeChange = (event: RadioChangeEvent) => setSquareSize(event.target.value);
+
   const jumpTo = (move: number) => {
     setXIsNext(() => (move % 2) === 0);
     setStepNumber(move);
@@ -120,6 +122,8 @@ const App: React.FC = () => {
             onSoundSliderChange={handleSoundVolumeChange}
             emojiSetName={emojisName}
             onSymbolsChange={handleSymbolsChange}
+            size={squareSize}
+            onSizeChange={handleSquareSizeChange}
           />
           <Button type="default" ghost onClick={startNewGame}>
             New game
@@ -130,7 +134,7 @@ const App: React.FC = () => {
           theme={theme}
           squares={formatSquares(current.squares)}
           onClick={handleSquareClick}
-          size={size}
+          size={squareSize}
         />
       </div>
       <div className="game-history">

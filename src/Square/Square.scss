@@ -1,8 +1,5 @@
 @import '../palette.scss';
-
-$size-s: 4rem;
-$size-m: 6rem;
-$size-l: 8rem;
+@import '../sizes.scss';
 
 .square {
   width: $size-m;
@@ -16,9 +13,14 @@ $size-l: 8rem;
   text-align: center;
   cursor: pointer;
 
-  &.lg {
+  &.large {
     width: $size-l;
     height: $size-l;
+  }
+
+  &.small {
+    width: $size-s;
+    height: $size-s;
   }
 
   &:nth-child(3) {

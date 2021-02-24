@@ -9,7 +9,7 @@ import {
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
 import { SwitchChangeEventHandler } from 'antd/lib/switch';
-import { themes } from '../Game';
+import { sizes, themes } from '../Game';
 import './SettingsPopover.scss';
 import { emojiSetNames } from '../emoji';
 
@@ -24,6 +24,8 @@ interface IProps {
   onSoundSliderChange: (value: number) => void;
   emojiSetName: emojiSetNames;
   onSymbolsChange: (e: RadioChangeEvent) => void;
+  size: sizes;
+  onSizeChange: (e: RadioChangeEvent) => void;
 }
 
 export default function SettingsPopover(props: IProps) {
@@ -72,6 +74,13 @@ export default function SettingsPopover(props: IProps) {
         <Radio.Button className="emojis" value="simple">❌ ⭕</Radio.Button>
         <Radio.Button className="emojis" value="nature">❄️ 🌸</Radio.Button>
         <Radio.Button className="emojis" value="danger">☠️ ☢️</Radio.Button>
+      </Radio.Group>
+      <p />
+      <Title level={5}>Board size: </Title>
+      <Radio.Group onChange={props.onSizeChange} value={props.size}>
+        <Radio value="small">Small</Radio>
+        <Radio value="medium">Medium</Radio>
+        <Radio value="large">Large</Radio>
       </Radio.Group>
     </div>
   );
