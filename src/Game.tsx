@@ -6,7 +6,7 @@ import useSound from 'use-sound';
 import sounds from './assets/sounds';
 import Board from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
-import calculateWinner from './calculateWinner';
+import calcWonIndexes from './calcWonIndexes';
 import SettingsPopover from './SettingsPopover/SettingsPopover';
 import EMOJI, { convertToEmoji, emojiSetNames, emojiSet } from './emoji';
 import { sizes, XO } from './Square/Square';
@@ -69,7 +69,7 @@ const App: React.FC = () => {
     const curr = hist[hist.length - 1];
     const squares = [...curr.squares];
 
-    if (calculateWinner(squares) || squares[i]) return;
+    if (calcWonIndexes(squares) || squares[i]) return;
 
     squares[i] = xIsNext ? 'X' : 'O';
     setHistory(hist.concat([{ squares }]));
@@ -77,7 +77,9 @@ const App: React.FC = () => {
     setStepNumber(hist.length);
     playClickSound();
 
-    if (calculateWinner(squares)) playWinSound();
+    if (calcWonIndexes(squares)) {
+      playWinSound();
+    }
   };
 
   const handleSquareSizeChange = (event: RadioChangeEvent) => setSquareSize(event.target.value);
@@ -94,13 +96,13 @@ const App: React.FC = () => {
   };
 
   const current = history[stepNumber];
-  const winner = calculateWinner(current.squares);
+  const wonIndexes = calcWonIndexes(current.squares);
   let status;
 
   const formatSquares = (squares: XO[]) => squares.map((el) => convertToEmoji(el, emojis));
 
-  if (winner) {
-    status = `Winner is ${convertToEmoji(winner, emojis)}`;
+  if (wonIndexes) {
+    status = `Winner is ${convertToEmoji(current.squares[wonIndexes[0]], emojis)}`;
   } else if (isBoardFull(current)) {
     status = 'Draw game';
   } else {
@@ -135,6 +137,8 @@ const App: React.FC = () => {
           squares={formatSquares(current.squares)}
           onClick={handleSquareClick}
           size={squareSize}
+          wonIndexes={wonIndexes}
+          // id="board"
         />
       </div>
       <div className="game-history">

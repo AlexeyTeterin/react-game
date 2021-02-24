@@ -9,6 +9,7 @@ interface IProps {
   size: sizes,
   theme: themes,
   onClick: () => void,
+  id: any,
 }
 
 export default function Square(props: IProps) {
@@ -33,6 +34,7 @@ export default function Square(props: IProps) {
       className={`square ${props.size} ${props.theme}`}
       onClick={handleClick}
       onAnimationEnd={handleAnimationEnd}
+      id={`square${props.id}`}
     >
       {props.value}
     </button>

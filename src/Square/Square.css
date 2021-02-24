@@ -10,6 +10,16 @@
   cursor: pointer;
 }
 
+.square.winner {
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  50% {
+    font-size: 4rem;
+  }
+}
+
 .square.fade {
   animation: fade 0.25s ease-out 1;
 }

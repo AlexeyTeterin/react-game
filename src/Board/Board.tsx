@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable class-methods-use-this */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { themes } from '../Game';
 import Square, { sizes } from '../Square/Square';
 import './Board.scss';
@@ -11,40 +11,55 @@ type Props = {
   squares: any[];
   onClick: any;
   size: sizes;
+  wonIndexes: number[] | null;
 }
-export default class Board extends React.Component<Props> {
-  renderSquare(i: number) {
-    return (
-      <Square
-        theme={this.props.theme}
-        value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
-        size={this.props.size}
-      />
-    );
-  }
 
-  render() {
-    const rowClasses = `board-row ${this.props.size}`;
+const Board: React.FC<Props> = (props: Props) => {
+  const squares = document.querySelectorAll('.square');
+  const { wonIndexes: winner } = props;
 
-    return (
-      <div className="board">
-        <div className={rowClasses}>
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className={rowClasses}>
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className={rowClasses}>
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+  useEffect(() => {
+    if (winner) {
+      const wonSquares = winner.map((wonIndex: number) => document.querySelector(`#square${wonIndex}`));
+      wonSquares.forEach((square) => setTimeout(() => {
+        square?.classList.add('winner');
+      }, 300));
+    } else {
+      squares.forEach((square) => square.classList.remove('winner'));
+    }
+  });
+
+  const renderSquare = (i: number) => (
+    <Square
+      theme={props.theme}
+      id={i}
+      value={props.squares[i]}
+      onClick={() => props.onClick(i)}
+      size={props.size}
+    />
+  );
+
+  const rowClasses = `board-row ${props.size}`;
+
+  return (
+    <div className="board">
+      <div className={rowClasses}>
+        {renderSquare(0)}
+        {renderSquare(1)}
+        {renderSquare(2)}
       </div>
-    );
-  }
-}
+      <div className={rowClasses}>
+        {renderSquare(3)}
+        {renderSquare(4)}
+        {renderSquare(5)}
+      </div>
+      <div className={rowClasses}>
+        {renderSquare(6)}
+        {renderSquare(7)}
+        {renderSquare(8)}
+      </div>
+    </div>
+  );
+};
+
+export default Board;
