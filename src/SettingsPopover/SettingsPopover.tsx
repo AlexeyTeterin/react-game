@@ -9,9 +9,10 @@ import {
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
 import { SwitchChangeEventHandler } from 'antd/lib/switch';
-import { sizes, themes } from '../Game';
+import { themes } from '../Game';
 import './SettingsPopover.scss';
 import { emojiSetNames } from '../emoji';
+import { sizes } from '../Square/Square';
 
 interface IProps {
   themeSelect: themes;

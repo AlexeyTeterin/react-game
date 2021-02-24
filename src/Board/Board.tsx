@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable class-methods-use-this */
 import React from 'react';
-import { sizes, themes } from '../Game';
-import Square from '../Square/Square';
+import { themes } from '../Game';
+import Square, { sizes } from '../Square/Square';
 import './Board.scss';
 
 export type XO = 'X' | 'O' | null;

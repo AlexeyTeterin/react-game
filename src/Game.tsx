@@ -9,12 +9,12 @@ import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calculateWinner from './calculateWinner';
 import SettingsPopover from './SettingsPopover/SettingsPopover';
 import EMOJI, { convertToEmoji, emojiSetNames, emojiSet } from './emoji';
+import { sizes } from './Square/Square';
 
 function isBoardFull(state: {squares: XO[]}) {
   return state.squares.indexOf(null) === -1;
 }
 
-export type sizes = 'small' | 'medium' | 'large';
 export type themes = 'Autumn' | 'Winter' | 'Spring';
 
 const App: React.FC = () => {
