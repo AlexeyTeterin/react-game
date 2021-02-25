@@ -31,7 +31,7 @@ const Board: React.FC<Props> = (props: Props) => {
   const rowClasses = `board-row ${props.size}`;
 
   return (
-    <div className="board">
+    <>
       <div className={rowClasses}>
         {renderSquare(0)}
         {renderSquare(1)}
@@ -47,7 +47,7 @@ const Board: React.FC<Props> = (props: Props) => {
         {renderSquare(7)}
         {renderSquare(8)}
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Button, RadioChangeEvent,
 } from 'antd';
@@ -32,7 +32,6 @@ const App: React.FC = () => {
   const [emojis, setEmojis] = useState<emojiSet>(EMOJI[emojisName]);
   const [playClickSound] = useSound(sounds.click, soundOptions);
   const [playWinSound] = useSound(sounds.win, soundOptions);
-  const whoIsNext = xIsNext ? emojis.x : emojis.o;
 
   const handleThemeChange = (event: RadioChangeEvent) => {
     const { target } = event;
@@ -95,43 +94,44 @@ const App: React.FC = () => {
     setStepNumber(0);
   };
 
-  const current = history[stepNumber];
-  const wonIndexes = calcWonIndexes(current.squares);
-  let status;
-
   const formatSquares = (squares: XO[]) => squares.map((el) => convertToEmoji(el, emojis));
 
+  const current = history[stepNumber];
+  const wonIndexes = calcWonIndexes(current.squares);
+  const whoIsNext = xIsNext ? emojis.x : emojis.o;
+  const status = useRef('');
+
   if (wonIndexes) {
-    status = `Winner is ${convertToEmoji(current.squares[wonIndexes[0]], emojis)}`;
+    status.current = `Winner is ${convertToEmoji(current.squares[wonIndexes[0]], emojis)}`;
   } else if (isBoardFull(current)) {
-    status = 'Draw game';
+    status.current = 'Draw game';
   } else {
-    status = `Next player: ${whoIsNext}`;
+    status.current = `Next player: ${whoIsNext}`;
   }
 
   return (
     <div className={`game ${theme}`}>
+      <div className="game-controls">
+        <SettingsPopover
+          themeSelect={theme}
+          onThemeChange={handleThemeChange}
+          isDark={darkMode}
+          onDarkModeChange={handleDarkModeChange}
+          isSound={soundOptions.soundEnabled}
+          soundVolume={soundOptions.volume}
+          onSoundToggle={handleSoundToggle}
+          onSoundSliderChange={handleSoundVolumeChange}
+          emojiSetName={emojisName}
+          onSymbolsChange={handleSymbolsChange}
+          size={squareSize}
+          onSizeChange={handleSquareSizeChange}
+        />
+        <Button type="default" ghost onClick={startNewGame}>
+          New game
+        </Button>
+        <div>{status.current}</div>
+      </div>
       <div className="game-board">
-        <div className="game-controls">
-          <SettingsPopover
-            themeSelect={theme}
-            onThemeChange={handleThemeChange}
-            isDark={darkMode}
-            onDarkModeChange={handleDarkModeChange}
-            isSound={soundOptions.soundEnabled}
-            soundVolume={soundOptions.volume}
-            onSoundToggle={handleSoundToggle}
-            onSoundSliderChange={handleSoundVolumeChange}
-            emojiSetName={emojisName}
-            onSymbolsChange={handleSymbolsChange}
-            size={squareSize}
-            onSizeChange={handleSquareSizeChange}
-          />
-          <Button type="default" ghost onClick={startNewGame}>
-            New game
-          </Button>
-          <div>{status}</div>
-        </div>
         <Board
           theme={theme}
           squares={formatSquares(current.squares)}
