@@ -11,11 +11,12 @@ interface IProps {
 export default function MovesDropdown(props: IProps) {
   const movesMenu = () => {
     const moves = props.history.map((step, move: number) => {
+      const key = `move#${move}`;
       const desc = move
         ? `Go to move # ${move}`
         : 'Go to game start';
       return (
-        <Menu.Item onClick={() => props.onItemClick(move)}>
+        <Menu.Item key={key} onClick={() => props.onItemClick(move)}>
           {desc}
         </Menu.Item>
       );
