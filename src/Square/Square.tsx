@@ -13,10 +13,10 @@ interface IProps {
   wonIndexes: number[] | null;
 }
 
-export default function Square(props: IProps) {
-  function handleAnimationEnd(e: React.SyntheticEvent) {
+const Square: React.FC<IProps> = (props: IProps) => {
+  const handleAnimationEnd = (e: React.SyntheticEvent) => {
     e.currentTarget.classList.remove('fade', 'shake');
-  }
+  };
 
   const handleClick = (event: SyntheticEvent) => {
     const target = event.currentTarget;
@@ -45,4 +45,6 @@ export default function Square(props: IProps) {
       {props.value}
     </button>
   );
-}
+};
+
+export default Square;

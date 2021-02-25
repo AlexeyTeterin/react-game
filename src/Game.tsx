@@ -138,7 +138,6 @@ const App: React.FC = () => {
           onClick={handleSquareClick}
           size={squareSize}
           wonIndexes={wonIndexes}
-          // id="board"
         />
       </div>
       <div className="game-history">
