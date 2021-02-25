@@ -10,6 +10,7 @@ interface IProps {
   theme: themes,
   onClick: () => void,
   id: any,
+  wonIndexes: number[] | null;
 }
 
 export default function Square(props: IProps) {
@@ -17,7 +18,7 @@ export default function Square(props: IProps) {
     e.currentTarget.classList.remove('fade', 'shake');
   }
 
-  function handleClick(event: SyntheticEvent) {
+  const handleClick = (event: SyntheticEvent) => {
     const target = event.currentTarget;
     if (target.textContent) {
       event.currentTarget.classList.add('shake');
@@ -26,12 +27,17 @@ export default function Square(props: IProps) {
     }
 
     props.onClick();
-  }
+  };
+
+  const isWinner = () => {
+    if (props.wonIndexes?.includes(props.id)) return 'winner';
+    return '';
+  };
 
   return (
     <button
       type="button"
-      className={`square ${props.size} ${props.theme}`}
+      className={`square ${props.size} ${props.theme} ${isWinner()}`}
       onClick={handleClick}
       onAnimationEnd={handleAnimationEnd}
       id={`square${props.id}`}

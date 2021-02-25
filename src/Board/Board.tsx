@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable class-methods-use-this */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { themes } from '../Game';
 import Square, { sizes } from '../Square/Square';
 import './Board.scss';
@@ -15,19 +15,7 @@ type Props = {
 }
 
 const Board: React.FC<Props> = (props: Props) => {
-  const squares = document.querySelectorAll('.square');
   const { wonIndexes } = props;
-
-  useEffect(() => {
-    if (wonIndexes) {
-      const wonSquares = wonIndexes.map((wonIndex: number) => document.querySelector(`#square${wonIndex}`));
-      wonSquares.forEach((square) => setTimeout(() => {
-        square?.classList.add('winner');
-      }, 300));
-    } else {
-      squares.forEach((square) => square.classList.remove('winner'));
-    }
-  });
 
   const renderSquare = (i: number) => (
     <Square
@@ -36,6 +24,7 @@ const Board: React.FC<Props> = (props: Props) => {
       value={props.squares[i]}
       onClick={() => props.onClick(i)}
       size={props.size}
+      wonIndexes={wonIndexes}
     />
   );
 
