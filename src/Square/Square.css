@@ -1,13 +1,11 @@
 .square {
-  width: 8rem;
-  height: 8rem;
   border: 1px solid;
-  font-size: 3rem;
   font-weight: bold;
   line-height: 34px;
   padding: 0;
   text-align: center;
   cursor: pointer;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
 .square.winner {
@@ -78,6 +76,12 @@
   width: 10rem;
   height: 10rem;
   font-size: 3.5rem;
+}
+
+.square.medium {
+  width: 8rem;
+  height: 8rem;
+  font-size: 3rem;
 }
 
 .square.small {

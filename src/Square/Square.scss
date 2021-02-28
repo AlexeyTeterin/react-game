@@ -2,10 +2,7 @@
 @import '../sizes.scss';
 
 .square {
-  width: $size-m;
-  height: $size-m;
   border: 1px solid;
-  font-size: 3rem;
   font-weight: bold;
   line-height: 34px;
   padding: 0;
@@ -93,6 +90,12 @@
     width: $size-l;
     height: $size-l;
     font-size: 3.5rem;
+  }
+
+  &.medium {
+    width: $size-m;
+    height: $size-m;
+    font-size: 3rem;
   }
 
   &.small {

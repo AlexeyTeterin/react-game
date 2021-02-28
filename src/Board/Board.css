@@ -1,0 +1,18 @@
+.board-row {
+  margin-bottom: -1px;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.board-row.large {
+  height: 8rem;
+}
+
+.board-row.medium {
+  height: 7rem;
+}
+
+.board-row.small {
+  height: 6rem;
+}

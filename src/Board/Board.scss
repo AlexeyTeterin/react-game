@@ -3,13 +3,16 @@
 .board-row {
   margin-bottom: -1px;
   padding: 0;
-  height: $size-m;
 
   display: flex;
   justify-content: center;
 
   &.large {
     height: $size-l;
+  }
+
+  &.medium {
+    height: $size-m;
   }
 
   &.small {
