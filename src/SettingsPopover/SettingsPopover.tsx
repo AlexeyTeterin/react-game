@@ -23,6 +23,10 @@ interface IProps {
   soundVolume: number;
   onSoundToggle: SwitchChangeEventHandler;
   onSoundSliderChange: (value: number) => void;
+  isMusic: boolean;
+  musicVolume: number;
+  onMusicToggle: SwitchChangeEventHandler;
+  onMusicSliderChange: (value: number) => void;
   emojiSetName: emojiSetNames;
   onSymbolsChange: (e: RadioChangeEvent) => void;
   size: sizes;
@@ -63,6 +67,23 @@ export default function SettingsPopover(props: IProps) {
           disabled={!props.isSound}
           value={props.soundVolume * 100}
           onChange={props.onSoundSliderChange}
+          tooltipVisible={false}
+        />
+      </div>
+      <p />
+      <Title level={5}>Music:</Title>
+      <div className="settings__sound">
+        <Switch
+          checkedChildren={<SoundOutlined />}
+          unCheckedChildren={<CloseOutlined />}
+          checked={props.isMusic}
+          onChange={props.onMusicToggle}
+        />
+        <Slider
+          disabled={!props.isMusic}
+          value={props.musicVolume * 100}
+          onChange={props.onMusicSliderChange}
+          tooltipVisible={false}
         />
       </div>
       <p />
@@ -86,7 +107,11 @@ export default function SettingsPopover(props: IProps) {
     </div>
   );
   return (
-    <Popover content={settings} trigger="click" placement="topRight">
+    <Popover
+      content={settings}
+      trigger="click"
+      placement="topRight"
+    >
       <SettingOutlined className="settingsBtn" />
     </Popover>
   );

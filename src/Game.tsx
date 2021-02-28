@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Button, RadioChangeEvent,
 } from 'antd';
@@ -25,13 +25,18 @@ const App: React.FC = () => {
   const [theme, setTheme] = useState<themes>('Autumn');
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [soundOptions, setSoundOptions] = useState({
-    volume: 1,
+    volume: 0.5,
     soundEnabled: true,
+  });
+  const [musicOptions, setMusicOptions] = useState({
+    volume: 0.5,
+    soundEnabled: false,
   });
   const [emojisName, setEmojisName] = useState<emojiSetNames>('simple');
   const [emojis, setEmojis] = useState<emojiSet>(EMOJI[emojisName]);
   const [playClickSound] = useSound(sounds.click, soundOptions);
   const [playWinSound] = useSound(sounds.win, soundOptions);
+  const [playMusic, { pause }] = useSound(sounds.music, musicOptions);
 
   const handleThemeChange = (event: RadioChangeEvent) => {
     const { target } = event;
@@ -46,12 +51,31 @@ const App: React.FC = () => {
   const handleSoundToggle = () => {
     setSoundOptions((prev) => ({
       soundEnabled: !prev.soundEnabled,
-      volume: prev.volume > 0 ? prev.volume : 0.75,
+      volume: prev.volume > 0 ? prev.volume : 0.5,
     }));
   };
 
   const handleSoundVolumeChange = (value: number) => {
     setSoundOptions(() => ({
+      soundEnabled: value > 0,
+      volume: value / 100,
+    }));
+  };
+
+  const handleMusicToggle = () => {
+    setMusicOptions((prev) => ({
+      soundEnabled: !prev.soundEnabled,
+      volume: prev.volume > 0 ? prev.volume : 0.75,
+    }));
+  };
+
+  useEffect(() => {
+    if (musicOptions.soundEnabled) playMusic();
+    else pause();
+  }, [musicOptions.soundEnabled, pause, playMusic]);
+
+  const handleMusicVolumeChange = (value: number) => {
+    setMusicOptions(() => ({
       soundEnabled: value > 0,
       volume: value / 100,
     }));
@@ -121,6 +145,10 @@ const App: React.FC = () => {
           soundVolume={soundOptions.volume}
           onSoundToggle={handleSoundToggle}
           onSoundSliderChange={handleSoundVolumeChange}
+          isMusic={musicOptions.soundEnabled}
+          musicVolume={musicOptions.volume}
+          onMusicToggle={handleMusicToggle}
+          onMusicSliderChange={handleMusicVolumeChange}
           emojiSetName={emojisName}
           onSymbolsChange={handleSymbolsChange}
           size={squareSize}
