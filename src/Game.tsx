@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {
+  useEffect, useRef, useState,
+} from 'react';
 import {
   Button, RadioChangeEvent,
 } from 'antd';
@@ -37,6 +39,12 @@ const App: React.FC = () => {
   const [playClickSound] = useSound(sounds.click, soundOptions);
   const [playWinSound] = useSound(sounds.win, soundOptions);
   const [playMusic, { pause }] = useSound(sounds.music, musicOptions);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  const handleWindowResize = () => {
+    setWindowWidth(window.innerWidth);
+    if (windowWidth < 440) setSquareSize('small');
+  };
 
   const handleThemeChange = (event: RadioChangeEvent) => {
     const { target } = event;
@@ -132,6 +140,11 @@ const App: React.FC = () => {
   } else {
     status.current = `Next player: ${whoIsNext}`;
   }
+
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowResize);
+    return () => window.removeEventListener('resize', handleWindowResize);
+  });
 
   return (
     <div className={`game ${theme}`}>
