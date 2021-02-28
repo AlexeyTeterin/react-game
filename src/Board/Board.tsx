@@ -12,6 +12,7 @@ type Props = {
   onClick: any;
   size: sizes;
   wonIndexes: number[] | null;
+  indexOfFocused: number;
 }
 
 const Board: React.FC<Props> = (props: Props) => {
@@ -25,6 +26,7 @@ const Board: React.FC<Props> = (props: Props) => {
       onClick={() => props.onClick(i)}
       size={props.size}
       wonIndexes={wonIndexes}
+      indexOfFocused={props.indexOfFocused}
     />
   );
 

@@ -73,14 +73,14 @@
 }
 
 .square.large {
-  width: 10rem;
-  height: 10rem;
+  width: 8rem;
+  height: 8rem;
   font-size: 3.5rem;
 }
 
 .square.medium {
-  width: 8rem;
-  height: 8rem;
+  width: 7rem;
+  height: 7rem;
   font-size: 3rem;
 }
 
@@ -105,6 +105,10 @@
 
 .square:focus {
   outline: none;
+}
+
+.square.focus {
+  opacity: 0.8;
 }
 
 .game.Autumn .square {

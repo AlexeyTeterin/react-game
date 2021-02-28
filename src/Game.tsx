@@ -39,6 +39,7 @@ const App: React.FC = () => {
   const [playClickSound] = useSound(sounds.click, soundOptions);
   const [playWinSound] = useSound(sounds.win, soundOptions);
   const [playMusic, { pause }] = useSound(sounds.music, musicOptions);
+  const [indexOfFocused, setFocused] = useState(-1);
   const [windowWidth, setWindowWidth] = useState(0);
 
   const handleWindowResize = () => {
@@ -133,6 +134,27 @@ const App: React.FC = () => {
   const whoIsNext = xIsNext ? emojis.x : emojis.o;
   const status = useRef('');
 
+  const handleKeyDown = (e: KeyboardEvent) => {
+    switch (e.key) {
+      case 'ArrowRight':
+        setFocused((prev) => (prev % 3 === 2 ? prev : prev + 1));
+        break;
+      case 'ArrowLeft':
+        setFocused((prev) => (prev % 3 === 0 ? prev : prev - 1));
+        break;
+      case 'ArrowDown':
+        setFocused((prev) => (prev > 5 ? prev : prev + 3));
+        break;
+      case 'ArrowUp':
+        setFocused((prev) => (prev < 3 ? prev : prev - 3));
+        break;
+      case 'Enter':
+        handleSquareClick(indexOfFocused);
+        break;
+      default:
+    }
+  };
+
   if (wonIndexes) {
     status.current = `Winner is ${convertToEmoji(current.squares[wonIndexes[0]], emojis)}`;
   } else if (isBoardFull(current)) {
@@ -143,7 +165,11 @@ const App: React.FC = () => {
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize);
-    return () => window.removeEventListener('resize', handleWindowResize);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('resize', handleWindowResize);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
   });
 
   return (
@@ -179,6 +205,7 @@ const App: React.FC = () => {
           onClick={handleSquareClick}
           size={squareSize}
           wonIndexes={wonIndexes}
+          indexOfFocused={indexOfFocused}
         />
       </div>
       <div className="game-history">

@@ -8,9 +8,10 @@ interface IProps {
   value: XO,
   size: sizes,
   theme: themes,
-  onClick: () => void,
+  onClick: Function,
   id: any,
   wonIndexes: number[] | null;
+  indexOfFocused: number;
 }
 
 const Square: React.FC<IProps> = (props: IProps) => {
@@ -26,7 +27,7 @@ const Square: React.FC<IProps> = (props: IProps) => {
       event.currentTarget.classList.add('fade');
     }
 
-    props.onClick();
+    props.onClick(event);
   };
 
   const isWinner = () => {
@@ -34,10 +35,15 @@ const Square: React.FC<IProps> = (props: IProps) => {
     return '';
   };
 
+  const isFocused = () => {
+    if (props.indexOfFocused === props.id) return 'focus';
+    return '';
+  };
+
   return (
     <button
       type="button"
-      className={`square ${props.size} ${props.theme} ${isWinner()}`}
+      className={`square ${props.size} ${props.theme} ${isWinner()} ${isFocused()}`}
       onClick={handleClick}
       onAnimationEnd={handleAnimationEnd}
       id={`square${props.id}`}
