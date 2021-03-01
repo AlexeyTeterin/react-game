@@ -67,7 +67,6 @@ export default function SettingsPopover(props: IProps) {
           disabled={!props.isSound}
           value={props.soundVolume * 100}
           onChange={props.onSoundSliderChange}
-          tooltipVisible={false}
         />
       </div>
       <p />
@@ -83,7 +82,6 @@ export default function SettingsPopover(props: IProps) {
           disabled={!props.isMusic}
           value={props.musicVolume * 100}
           onChange={props.onMusicSliderChange}
-          tooltipVisible={false}
         />
       </div>
       <p />
