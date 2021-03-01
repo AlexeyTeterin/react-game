@@ -111,7 +111,8 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const whoIsNext = xIsNext ? EMOJI[props.emojis].x : EMOJI[props.emojis].o;
   const status = useRef('');
 
-  const handleKeyDown = (e: KeyboardEvent) => {
+  const handleKeyDown = (e: any) => {
+    console.log(e);
     switch (e.key) {
       case 'ArrowRight':
         setFocused((prev) => (prev % 3 === 2 ? prev : prev + 1));
@@ -126,7 +127,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
         setFocused((prev) => (prev < 3 ? prev : prev - 3));
         break;
       case 'Enter':
-        handleSquareClick(indexOfFocused);
+        document.querySelector('.focus')!.dispatchEvent(new Event('click', { bubbles: true }));
         break;
       default:
     }
@@ -142,10 +143,10 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
 
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize);
-    document.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('resize', handleWindowResize);
-      document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('keydown', handleKeyDown);
     };
   });
 
@@ -162,7 +163,12 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
           onMusicToggle={handleMusicToggle}
           onMusicSliderChange={handleMusicVolumeChange}
         />
-        <Button type="default" ghost onClick={startNewGame}>
+        <Button
+          type="default"
+          ghost
+          onClick={startNewGame}
+          onMouseDown={(e) => e.preventDefault()}
+        >
           New game
         </Button>
         <div>{status.current}</div>
