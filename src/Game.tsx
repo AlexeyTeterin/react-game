@@ -13,7 +13,7 @@ import SettingsPopover from './SettingsPopover/SettingsPopover';
 import EMOJI, { convertToEmoji } from './emoji';
 import { connector, PropsFromRedux } from './redux/rootReducer';
 import {
-  emojiSet, emojiSetNames, sizes, XO,
+  emojiSet, emojiSetNames, XO,
 } from './types';
 
 function isBoardFull(state: {squares: XO[]}) {
@@ -24,7 +24,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [stepNumber, setStepNumber] = useState<number>(0);
-  const [squareSize, setSquareSize] = useState<sizes>('small');
+  // const [squareSize, setSquareSize] = useState<sizes>('small');
   const [soundOptions, setSoundOptions] = useState({
     volume: 0.5,
     soundEnabled: true,
@@ -43,7 +43,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
 
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
-    if (windowWidth < 440) setSquareSize('small');
+    if (windowWidth < 440) props.setSquareSize('small');
   };
 
   const handleSoundToggle = () => {
@@ -102,8 +102,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
       playWinSound();
     }
   };
-
-  const handleSquareSizeChange = (event: RadioChangeEvent) => setSquareSize(event.target.value);
 
   const jumpTo = (move: number) => {
     setXIsNext(() => (move % 2) === 0);
@@ -177,8 +175,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
           onMusicSliderChange={handleMusicVolumeChange}
           emojiSetName={emojisName}
           onSymbolsChange={handleSymbolsChange}
-          size={squareSize}
-          onSizeChange={handleSquareSizeChange}
         />
         <Button type="default" ghost onClick={startNewGame}>
           New game
@@ -190,7 +186,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
           theme={props.theme}
           squares={formatSquares(current.squares)}
           onClick={handleSquareClick}
-          size={squareSize}
+          size={props.squareSize}
           wonIndexes={wonIndexes}
           indexOfFocused={indexOfFocused}
         />

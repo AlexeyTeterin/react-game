@@ -26,8 +26,6 @@ interface ISettings {
   onMusicSliderChange: (value: number) => void;
   emojiSetName: emojiSetNames;
   onSymbolsChange: (e: RadioChangeEvent) => void;
-  size: sizes;
-  onSizeChange: (e: RadioChangeEvent) => void;
 }
 
 type Props = PropsFromRedux & ISettings;
@@ -96,7 +94,7 @@ const SettingsPopover: React.FC<Props> = (props: Props) => {
       </Radio.Group>
       <p />
       <Title level={5}>Board size: </Title>
-      <Radio.Group onChange={props.onSizeChange} value={props.size}>
+      <Radio.Group onChange={props.setSquareSize} value={props.squareSize}>
         <Radio value="small">Small</Radio>
         <Radio value="medium">Medium</Radio>
         <Radio value="large">Large</Radio>
