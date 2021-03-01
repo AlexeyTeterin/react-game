@@ -1,10 +1,12 @@
 import React, {
   useEffect, useRef, useState,
 } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
 import {
   Button, RadioChangeEvent,
 } from 'antd';
 import useSound from 'use-sound';
+import { Dispatch } from 'redux';
 import sounds from './assets/sounds';
 import Board from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
@@ -19,12 +21,27 @@ function isBoardFull(state: {squares: XO[]}) {
 
 export type themes = 'Autumn' | 'Winter' | 'Spring';
 
-const App: React.FC = () => {
+interface GameState {
+  theme: themes;
+}
+
+const mapStatetoProps = (state: GameState) => ({
+  theme: state.theme,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+  setTheme: (e: RadioChangeEvent) => dispatch({ type: 'setTheme', value: e.target.value }),
+});
+
+const connector = connect(mapStatetoProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [stepNumber, setStepNumber] = useState<number>(0);
   const [squareSize, setSquareSize] = useState<sizes>('small');
-  const [theme, setTheme] = useState<themes>('Autumn');
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [soundOptions, setSoundOptions] = useState({
     volume: 0.5,
@@ -45,11 +62,6 @@ const App: React.FC = () => {
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
     if (windowWidth < 440) setSquareSize('small');
-  };
-
-  const handleThemeChange = (event: RadioChangeEvent) => {
-    const { target } = event;
-    setTheme(target.value);
   };
 
   const handleDarkModeChange = () => {
@@ -173,11 +185,11 @@ const App: React.FC = () => {
   });
 
   return (
-    <div className={`game ${theme}`}>
+    <div className={`game ${props.theme}`}>
       <div className="game-controls">
         <SettingsPopover
-          themeSelect={theme}
-          onThemeChange={handleThemeChange}
+          themeSelect={props.theme}
+          onThemeChange={props.setTheme}
           isDark={darkMode}
           onDarkModeChange={handleDarkModeChange}
           isSound={soundOptions.soundEnabled}
@@ -200,7 +212,7 @@ const App: React.FC = () => {
       </div>
       <div className="game-board">
         <Board
-          theme={theme}
+          theme={props.theme}
           squares={formatSquares(current.squares)}
           onClick={handleSquareClick}
           size={squareSize}
@@ -215,4 +227,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default connector(App);

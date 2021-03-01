@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from './redux/rootReducer';
 import 'normalize.css';
 import 'antd/dist/antd.css';
 import './index.scss';
 import Game from './Game';
 import reportWebVitals from './reportWebVitals';
 
+const store: any = createStore(rootReducer);
+
 ReactDOM.render(
-  <Game />,
+  <Provider store={store}>
+    <Game />
+  </Provider>,
   document.getElementById('root'),
 );
 
