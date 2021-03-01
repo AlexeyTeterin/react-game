@@ -16,7 +16,6 @@ function isBoardFull(state: {squares: XO[]}) {
 
 const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
-  const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [stepNumber, setStepNumber] = useState<number>(0);
   const [soundOptions, setSoundOptions] = useState({
     volume: 0.5,
@@ -77,9 +76,9 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
 
     if (calcWonIndexes(squares) || squares[i]) return;
 
-    squares[i] = xIsNext ? 'X' : 'O';
+    squares[i] = props.xIsNext ? 'X' : 'O';
     setHistory(hist.concat([{ squares }]));
-    setXIsNext((prev) => !prev);
+    props.setXIsNext(!props.xIsNext);
     setStepNumber(hist.length);
     playClickSound();
 
@@ -89,14 +88,14 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   };
 
   const jumpTo = (move: number) => {
-    setXIsNext(() => (move % 2) === 0);
+    props.setXIsNext((move % 2) === 0);
     setStepNumber(move);
   };
 
   const startNewGame = () => {
     setStepNumber(0);
     setHistory([{ squares: Array(9).fill(null) }]);
-    setXIsNext(true);
+    props.setXIsNext(true);
   };
 
   const formatSquares = (squares: XO[]) => squares
@@ -104,7 +103,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
 
   const current = history[stepNumber];
   const wonIndexes = calcWonIndexes(current.squares);
-  const whoIsNext = xIsNext ? EMOJI[props.emojis].x : EMOJI[props.emojis].o;
+  const whoIsNext = props.xIsNext ? EMOJI[props.emojis].x : EMOJI[props.emojis].o;
   const status = useRef('');
 
   const handleKeyDown = (e: any) => {
@@ -124,7 +123,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
       case 'Enter':
       case 'NumpadEnter':
       case 'Space':
-        document.querySelector('.focus')!.dispatchEvent(new Event('click', { bubbles: true }));
+        document.querySelector('.focus')?.dispatchEvent(new Event('click', { bubbles: true }));
         break;
       case 'KeyN':
       case 'Delete':

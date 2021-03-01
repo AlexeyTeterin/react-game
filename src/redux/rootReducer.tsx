@@ -8,6 +8,8 @@ interface IGameState {
   darkMode: boolean;
   squareSize: sizes;
   emojis: emojiSetNames;
+
+  xIsNext: boolean;
 }
 
 const initialState: IGameState = {
@@ -15,6 +17,7 @@ const initialState: IGameState = {
   darkMode: false,
   squareSize: 'medium',
   emojis: 'simple',
+  xIsNext: true,
 };
 
 export default function rootReducer(state: IGameState = initialState, action: any) {
@@ -28,6 +31,8 @@ export default function rootReducer(state: IGameState = initialState, action: an
       return { ...state, squareSize: action.value };
     case 'setEmojis':
       return { ...state, emojis: action.value };
+    case 'setXIsNext':
+      return { ...state, xIsNext: !state.xIsNext };
     default:
   }
 
@@ -39,6 +44,7 @@ const mapStatetoProps = (state: IGameState) => ({
   darkMode: state.darkMode,
   squareSize: state.squareSize,
   emojis: state.emojis,
+  xIsNext: state.xIsNext,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -57,6 +63,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   setEmojis: (e: RadioChangeEvent) => dispatch({
     type: 'setEmojis', value: e.target.value,
   }),
+  setXIsNext: (isNext: boolean) => dispatch({ type: 'setXIsNext', value: isNext }),
 });
 
 export const connector = connect(mapStatetoProps, mapDispatchToProps);
