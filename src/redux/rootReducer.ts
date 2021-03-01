@@ -8,8 +8,11 @@ interface IGameState {
   darkMode: boolean;
   squareSize: sizes;
   emojis: emojiSetNames;
-
   xIsNext: boolean;
+  isSound: boolean;
+  soundVolume: number;
+  isMusic: boolean;
+  musicVolume: number;
 }
 
 const initialState: IGameState = {
@@ -18,6 +21,10 @@ const initialState: IGameState = {
   squareSize: 'medium',
   emojis: 'simple',
   xIsNext: true,
+  isSound: true,
+  soundVolume: 0.5,
+  isMusic: false,
+  musicVolume: 0.5,
 };
 
 export default function rootReducer(state: IGameState = initialState, action: any) {
@@ -32,7 +39,15 @@ export default function rootReducer(state: IGameState = initialState, action: an
     case 'setEmojis':
       return { ...state, emojis: action.value };
     case 'setXIsNext':
-      return { ...state, xIsNext: !state.xIsNext };
+      return { ...state, xIsNext: action.value };
+    case 'toggleSound':
+      return { ...state, isSound: !state.isSound };
+    case 'setSoundVolume':
+      return { ...state, soundVolume: action.value };
+    case 'toggleMusic':
+      return { ...state, isMusic: !state.isMusic };
+    case 'setMusicVolume':
+      return { ...state, musicVolume: action.value };
     default:
   }
 
@@ -45,6 +60,10 @@ const mapStatetoProps = (state: IGameState) => ({
   squareSize: state.squareSize,
   emojis: state.emojis,
   xIsNext: state.xIsNext,
+  isSound: state.isSound,
+  soundVolume: state.soundVolume,
+  isMusic: state.isMusic,
+  musicVolume: state.musicVolume,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -63,7 +82,21 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   setEmojis: (e: RadioChangeEvent) => dispatch({
     type: 'setEmojis', value: e.target.value,
   }),
-  setXIsNext: (isNext: boolean) => dispatch({ type: 'setXIsNext', value: isNext }),
+  setXIsNext: (isNext: boolean) => dispatch({
+    type: 'setXIsNext', value: isNext,
+  }),
+  toggleSound: () => dispatch({
+    type: 'toggleSound',
+  }),
+  setSoundVolume: (value: number) => dispatch({
+    type: 'setSoundVolume', value: value / 100,
+  }),
+  toggleMusic: () => dispatch({
+    type: 'toggleMusic',
+  }),
+  setMusicVolume: (value: number) => dispatch({
+    type: 'setMusicVolume', value: value / 100,
+  }),
 });
 
 export const connector = connect(mapStatetoProps, mapDispatchToProps);

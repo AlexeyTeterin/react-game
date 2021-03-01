@@ -17,14 +17,14 @@ function isBoardFull(state: {squares: XO[]}) {
 const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState<number>(0);
-  const [soundOptions, setSoundOptions] = useState({
-    volume: 0.5,
-    soundEnabled: true,
-  });
-  const [musicOptions, setMusicOptions] = useState({
-    volume: 0.5,
-    soundEnabled: false,
-  });
+  const soundOptions = {
+    soundEnabled: props.isSound,
+    volume: props.soundVolume,
+  };
+  const musicOptions = {
+    soundEnabled: props.isMusic,
+    volume: props.musicVolume,
+  };
   const [playClickSound] = useSound(sounds.click, soundOptions);
   const [playWinSound] = useSound(sounds.win, soundOptions);
   const [playMusic, { pause }] = useSound(sounds.music, musicOptions);
@@ -36,38 +36,10 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     if (windowWidth < 440) props.setSquareSize('small');
   };
 
-  const handleSoundToggle = () => {
-    setSoundOptions((prev) => ({
-      soundEnabled: !prev.soundEnabled,
-      volume: prev.volume > 0 ? prev.volume : 0.5,
-    }));
-  };
-
-  const handleSoundVolumeChange = (value: number) => {
-    setSoundOptions(() => ({
-      soundEnabled: value > 0,
-      volume: value / 100,
-    }));
-  };
-
-  const handleMusicToggle = () => {
-    setMusicOptions((prev) => ({
-      soundEnabled: !prev.soundEnabled,
-      volume: prev.volume > 0 ? prev.volume : 0.75,
-    }));
-  };
-
   useEffect(() => {
     if (musicOptions.soundEnabled) playMusic();
     else pause();
   }, [musicOptions.soundEnabled, pause, playMusic]);
-
-  const handleMusicVolumeChange = (value: number) => {
-    setMusicOptions(() => ({
-      soundEnabled: value > 0,
-      volume: value / 100,
-    }));
-  };
 
   const handleSquareClick = (i: number) => {
     const hist = history.slice(0, stepNumber + 1);
@@ -156,16 +128,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   return (
     <div className={`game ${props.theme}`}>
       <div className="game-controls">
-        <SettingsPopover
-          isSound={soundOptions.soundEnabled}
-          soundVolume={soundOptions.volume}
-          onSoundToggle={handleSoundToggle}
-          onSoundSliderChange={handleSoundVolumeChange}
-          isMusic={musicOptions.soundEnabled}
-          musicVolume={musicOptions.volume}
-          onMusicToggle={handleMusicToggle}
-          onMusicSliderChange={handleMusicVolumeChange}
-        />
+        <SettingsPopover />
         <Button
           type="default"
           ghost

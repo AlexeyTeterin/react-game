@@ -8,24 +8,10 @@ import {
 } from 'antd';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
-import { SwitchChangeEventHandler } from 'antd/lib/switch';
 import './SettingsPopover.scss';
 import { connector, PropsFromRedux } from '../redux/rootReducer';
 
-interface ISettings {
-  isSound: boolean;
-  soundVolume: number;
-  onSoundToggle: SwitchChangeEventHandler;
-  onSoundSliderChange: (value: number) => void;
-  isMusic: boolean;
-  musicVolume: number;
-  onMusicToggle: SwitchChangeEventHandler;
-  onMusicSliderChange: (value: number) => void;
-}
-
-type Props = PropsFromRedux & ISettings;
-
-const SettingsPopover: React.FC<Props> = (props: Props) => {
+const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const settings = (
     <div className="settings">
       <Title level={5}>Theme: </Title>
@@ -53,12 +39,12 @@ const SettingsPopover: React.FC<Props> = (props: Props) => {
           checkedChildren={<SoundOutlined />}
           unCheckedChildren={<CloseOutlined />}
           checked={props.isSound}
-          onChange={props.onSoundToggle}
+          onChange={props.toggleSound}
         />
         <Slider
           disabled={!props.isSound}
           value={props.soundVolume * 100}
-          onChange={props.onSoundSliderChange}
+          onChange={props.setSoundVolume}
         />
       </div>
       <p />
@@ -68,12 +54,12 @@ const SettingsPopover: React.FC<Props> = (props: Props) => {
           checkedChildren={<SoundOutlined />}
           unCheckedChildren={<CloseOutlined />}
           checked={props.isMusic}
-          onChange={props.onMusicToggle}
+          onChange={props.toggleMusic}
         />
         <Slider
           disabled={!props.isMusic}
           value={props.musicVolume * 100}
-          onChange={props.onMusicSliderChange}
+          onChange={props.setMusicVolume}
         />
       </div>
       <p />
