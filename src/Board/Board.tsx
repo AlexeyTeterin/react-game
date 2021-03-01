@@ -1,19 +1,16 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable class-methods-use-this */
 import React from 'react';
+import { connector, PropsFromRedux } from '../redux/rootReducer';
 import Square from '../Square/Square';
-import { sizes, themes } from '../types';
 import './Board.scss';
 
-type Props = {
-  theme: themes;
+interface IBoard {
   squares: any[];
   onClick: any;
-  size: sizes;
   wonIndexes: number[] | null;
   indexOfFocused: number;
 }
+
+type Props = PropsFromRedux & IBoard;
 
 const Board: React.FC<Props> = (props: Props) => {
   const { wonIndexes } = props;
@@ -24,13 +21,13 @@ const Board: React.FC<Props> = (props: Props) => {
       id={i}
       value={props.squares[i]}
       onClick={() => props.onClick(i)}
-      size={props.size}
+      size={props.squareSize}
       wonIndexes={wonIndexes}
       indexOfFocused={props.indexOfFocused}
     />
   );
 
-  const rowClasses = `board-row ${props.size}`;
+  const rowClasses = `board-row ${props.squareSize}`;
 
   return (
     <>
@@ -53,4 +50,4 @@ const Board: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default Board;
+export default connector(Board);

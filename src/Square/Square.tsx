@@ -43,6 +43,7 @@ const Square: React.FC<IProps> = (props: IProps) => {
       type="button"
       className={`square ${props.size} ${props.theme} ${isWinner()} ${isFocused()}`}
       onClick={handleClick}
+      onMouseDown={(e) => e.preventDefault()}
       onAnimationEnd={handleAnimationEnd}
       id={`square${props.id}`}
     >

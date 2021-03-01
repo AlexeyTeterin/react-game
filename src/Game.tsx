@@ -1,9 +1,5 @@
-import React, {
-  useEffect, useRef, useState,
-} from 'react';
-import {
-  Button,
-} from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
+import { Button } from 'antd';
 import useSound from 'use-sound';
 import sounds from './assets/sounds';
 import Board from './Board/Board';
@@ -98,9 +94,9 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   };
 
   const startNewGame = () => {
+    setStepNumber(0);
     setHistory([{ squares: Array(9).fill(null) }]);
     setXIsNext(true);
-    setStepNumber(0);
   };
 
   const formatSquares = (squares: XO[]) => squares
@@ -112,22 +108,27 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const status = useRef('');
 
   const handleKeyDown = (e: any) => {
-    console.log(e);
-    switch (e.key) {
+    switch (e.code) {
       case 'ArrowRight':
-        setFocused((prev) => (prev % 3 === 2 ? prev : prev + 1));
+        setFocused((prev) => (prev % 3 === 2 ? prev - 2 : prev + 1));
         break;
       case 'ArrowLeft':
-        setFocused((prev) => (prev % 3 === 0 ? prev : prev - 1));
+        setFocused((prev) => (prev % 3 === 0 ? prev + 2 : prev - 1));
         break;
       case 'ArrowDown':
-        setFocused((prev) => (prev > 5 ? prev : prev + 3));
+        setFocused((prev) => (prev > 5 ? prev - 6 : prev + 3));
         break;
       case 'ArrowUp':
-        setFocused((prev) => (prev < 3 ? prev : prev - 3));
+        setFocused((prev) => (prev < 3 ? prev + 6 : prev - 3));
         break;
       case 'Enter':
+      case 'NumpadEnter':
+      case 'Space':
         document.querySelector('.focus')!.dispatchEvent(new Event('click', { bubbles: true }));
+        break;
+      case 'KeyN':
+      case 'Delete':
+        startNewGame();
         break;
       default:
     }
@@ -175,10 +176,8 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
       </div>
       <div className="game-board">
         <Board
-          theme={props.theme}
           squares={formatSquares(current.squares)}
           onClick={handleSquareClick}
-          size={props.squareSize}
           wonIndexes={wonIndexes}
           indexOfFocused={indexOfFocused}
         />

@@ -17,7 +17,22 @@ const initialState: IGameState = {
   emojis: 'simple',
 };
 
-export type PropsFromRedux = ConnectedProps<typeof connector>;
+export default function rootReducer(state: IGameState = initialState, action: any) {
+  switch (action.type) {
+    case 'setTheme':
+      return { ...state, theme: action.value };
+    case 'toggleDarkMode':
+      document.body.classList.toggle('dark');
+      return { ...state, darkMode: !state.darkMode };
+    case 'setSquareSize':
+      return { ...state, squareSize: action.value };
+    case 'setEmojis':
+      return { ...state, emojis: action.value };
+    default:
+  }
+
+  return state;
+}
 
 const mapStatetoProps = (state: IGameState) => ({
   theme: state.theme,
@@ -46,19 +61,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
 
 export const connector = connect(mapStatetoProps, mapDispatchToProps);
 
-export default function rootReducer(state: IGameState = initialState, action: any) {
-  switch (action.type) {
-    case 'setTheme':
-      return { ...state, theme: action.value };
-    case 'toggleDarkMode':
-      document.body.classList.toggle('dark');
-      return { ...state, darkMode: !state.darkMode };
-    case 'setSquareSize':
-      return { ...state, squareSize: action.value };
-    case 'setEmojis':
-      return { ...state, emojis: action.value };
-    default:
-  }
-
-  return state;
-}
+export type PropsFromRedux = ConnectedProps<typeof connector>;
