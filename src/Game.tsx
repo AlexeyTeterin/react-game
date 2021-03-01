@@ -129,6 +129,9 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
       case 'Delete':
         startNewGame();
         break;
+      case 'Backspace':
+        setFocused(-1);
+        break;
       default:
     }
   };
