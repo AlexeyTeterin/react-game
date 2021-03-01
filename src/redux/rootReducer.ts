@@ -1,7 +1,9 @@
 import { RadioChangeEvent } from 'antd';
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
-import { emojiSetNames, sizes, themes } from '../types';
+import {
+  emojiSetNames, history, sizes, themes,
+} from '../types';
 
 interface IGameState {
   theme: themes;
@@ -13,6 +15,7 @@ interface IGameState {
   soundVolume: number;
   isMusic: boolean;
   musicVolume: number;
+  history: history;
 }
 
 const initialState: IGameState = {
@@ -25,6 +28,7 @@ const initialState: IGameState = {
   soundVolume: 0.5,
   isMusic: false,
   musicVolume: 0.5,
+  history: [{ squares: Array(9).fill(null) }],
 };
 
 export default function rootReducer(state: IGameState = initialState, action: any) {
@@ -48,6 +52,8 @@ export default function rootReducer(state: IGameState = initialState, action: an
       return { ...state, isMusic: !state.isMusic };
     case 'setMusicVolume':
       return { ...state, musicVolume: action.value };
+    case 'setHistory':
+      return { ...state, history: action.moves };
     default:
   }
 
@@ -64,6 +70,7 @@ const mapStatetoProps = (state: IGameState) => ({
   soundVolume: state.soundVolume,
   isMusic: state.isMusic,
   musicVolume: state.musicVolume,
+  history: state.history,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -96,6 +103,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   }),
   setMusicVolume: (value: number) => dispatch({
     type: 'setMusicVolume', value: value / 100,
+  }),
+  setHistory: (moves: history) => dispatch({
+    type: 'setHistory', moves,
   }),
 });
 

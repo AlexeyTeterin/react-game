@@ -15,7 +15,6 @@ function isBoardFull(state: {squares: XO[]}) {
 }
 
 const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
-  const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [stepNumber, setStepNumber] = useState<number>(0);
   const soundOptions = {
     soundEnabled: props.isSound,
@@ -42,14 +41,14 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   }, [musicOptions.soundEnabled, pause, playMusic]);
 
   const handleSquareClick = (i: number) => {
-    const hist = history.slice(0, stepNumber + 1);
+    const hist = props.history.slice(0, stepNumber + 1);
     const curr = hist[hist.length - 1];
     const squares = [...curr.squares];
 
     if (calcWonIndexes(squares) || squares[i]) return;
 
     squares[i] = props.xIsNext ? 'X' : 'O';
-    setHistory(hist.concat([{ squares }]));
+    props.setHistory(hist.concat([{ squares }]));
     props.setXIsNext(!props.xIsNext);
     setStepNumber(hist.length);
     playClickSound();
@@ -59,21 +58,21 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     }
   };
 
-  const jumpTo = (move: number) => {
+  const jumpToMove = (move: number) => {
     props.setXIsNext((move % 2) === 0);
     setStepNumber(move);
   };
 
   const startNewGame = () => {
     setStepNumber(0);
-    setHistory([{ squares: Array(9).fill(null) }]);
+    props.setHistory([{ squares: Array(9).fill(null) }]);
     props.setXIsNext(true);
   };
 
   const formatSquares = (squares: XO[]) => squares
     .map((el) => convertToEmoji(el, EMOJI[props.emojis]));
 
-  const current = history[stepNumber];
+  const current = props.history[stepNumber];
   const wonIndexes = calcWonIndexes(current.squares);
   const whoIsNext = props.xIsNext ? EMOJI[props.emojis].x : EMOJI[props.emojis].o;
   const status = useRef('');
@@ -148,7 +147,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
         />
       </div>
       <div className="game-history">
-        <MovesDropdown history={history} onItemClick={jumpTo} />
+        <MovesDropdown history={props.history} onItemClick={jumpToMove} />
       </div>
     </div>
   );
