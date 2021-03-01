@@ -1,9 +1,7 @@
 import React, { SyntheticEvent } from 'react';
-import { themes } from '../Game';
+import { sizes, themes, XO } from '../types';
 import './Square.scss';
 
-export type sizes = 'small' | 'medium' | 'large';
-export type XO = 'X' | 'O' | null;
 interface IProps {
   value: XO,
   size: sizes,

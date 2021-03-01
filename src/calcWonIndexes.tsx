@@ -1,6 +1,6 @@
-import { XO } from './Square/Square';
+import { XO } from './types';
 
-export default function calcWonIndexes(squares: Array<XO>) {
+export default function calcWonIndexes(squares: XO[]) {
   const lines = [
     [0, 1, 2],
     [3, 4, 5],

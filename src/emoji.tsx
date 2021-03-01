@@ -1,8 +1,4 @@
-import { XO } from './Square/Square';
-
-export type emojiSetNames = 'simple' | 'nature' | 'danger';
-
-export type emojiSet = { x: string, o: string };
+import { emojiSet, XO } from './types';
 
 export interface IEmoji {
   [propName: string]: emojiSet;

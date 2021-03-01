@@ -2,8 +2,8 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable class-methods-use-this */
 import React from 'react';
-import { themes } from '../Game';
-import Square, { sizes } from '../Square/Square';
+import Square from '../Square/Square';
+import { sizes, themes } from '../types';
 import './Board.scss';
 
 type Props = {

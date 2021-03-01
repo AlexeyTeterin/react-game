@@ -9,16 +9,13 @@ import {
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
 import { SwitchChangeEventHandler } from 'antd/lib/switch';
-import { themes } from '../Game';
 import './SettingsPopover.scss';
-import { emojiSetNames } from '../emoji';
-import { sizes } from '../Square/Square';
+import { connector, PropsFromRedux } from '../redux/rootReducer';
+import { emojiSetNames, sizes, themes } from '../types';
 
-interface IProps {
+interface ISettings {
   themeSelect: themes;
   onThemeChange: (e: RadioChangeEvent) => void;
-  isDark: boolean;
-  onDarkModeChange: SwitchChangeEventHandler;
   isSound: boolean;
   soundVolume: number;
   onSoundToggle: SwitchChangeEventHandler;
@@ -33,7 +30,9 @@ interface IProps {
   onSizeChange: (e: RadioChangeEvent) => void;
 }
 
-export default function SettingsPopover(props: IProps) {
+type Props = PropsFromRedux & ISettings;
+
+const SettingsPopover: React.FC<Props> = (props: Props) => {
   const settings = (
     <div className="settings">
       <Title level={5}>Theme: </Title>
@@ -51,8 +50,8 @@ export default function SettingsPopover(props: IProps) {
       <Switch
         checkedChildren={<FaMoon />}
         unCheckedChildren={<FaSun />}
-        defaultChecked={props.isDark}
-        onChange={props.onDarkModeChange}
+        defaultChecked={props.darkMode}
+        onChange={props.toggleDarkMode}
       />
       <p />
       <Title level={5}>Sound:</Title>
@@ -113,4 +112,6 @@ export default function SettingsPopover(props: IProps) {
       <SettingOutlined className="settingsBtn" />
     </Popover>
   );
-}
+};
+
+export default connector(SettingsPopover);

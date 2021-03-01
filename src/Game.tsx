@@ -1,44 +1,24 @@
 import React, {
   useEffect, useRef, useState,
 } from 'react';
-import { connect, ConnectedProps } from 'react-redux';
 import {
   Button, RadioChangeEvent,
 } from 'antd';
 import useSound from 'use-sound';
-import { Dispatch } from 'redux';
 import sounds from './assets/sounds';
 import Board from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calcWonIndexes from './calcWonIndexes';
 import SettingsPopover from './SettingsPopover/SettingsPopover';
-import EMOJI, { convertToEmoji, emojiSetNames, emojiSet } from './emoji';
-import { sizes, XO } from './Square/Square';
+import EMOJI, { convertToEmoji } from './emoji';
+import { connector, PropsFromRedux } from './redux/rootReducer';
+import {
+  emojiSet, emojiSetNames, sizes, XO,
+} from './types';
 
 function isBoardFull(state: {squares: XO[]}) {
   return state.squares.indexOf(null) === -1;
 }
-
-export type themes = 'Autumn' | 'Winter' | 'Spring';
-
-interface GameState {
-  theme: themes;
-  darkMode: boolean;
-}
-
-const mapStatetoProps = (state: GameState) => ({
-  theme: state.theme,
-  darkMode: state.darkMode,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-  setTheme: (e: RadioChangeEvent) => dispatch({ type: 'setTheme', value: e.target.value }),
-  toggleDarkMode: () => dispatch({ type: 'toggleDarkMode' }),
-});
-
-const connector = connect(mapStatetoProps, mapDispatchToProps);
-
-type PropsFromRedux = ConnectedProps<typeof connector>;
 
 const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
@@ -187,8 +167,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
         <SettingsPopover
           themeSelect={props.theme}
           onThemeChange={props.setTheme}
-          isDark={props.darkMode}
-          onDarkModeChange={props.toggleDarkMode}
           isSound={soundOptions.soundEnabled}
           soundVolume={soundOptions.volume}
           onSoundToggle={handleSoundToggle}
