@@ -7,8 +7,8 @@ import MovesDropdown from './MovesDropdown/MovesDropdown';
 import calcWonIndexes from './calcWonIndexes';
 import SettingsPopover from './SettingsPopover/SettingsPopover';
 import EMOJI, { convertToEmoji } from './emoji';
-import { connector, PropsFromRedux } from './redux/rootReducer';
 import { XO } from './types';
+import connector, { PropsFromRedux } from './redux/connector';
 
 function isBoardFull(state: {squares: XO[]}) {
   return state.squares.indexOf(null) === -1;

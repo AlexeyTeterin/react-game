@@ -9,7 +9,7 @@ import {
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
 import './SettingsPopover.scss';
-import { connector, PropsFromRedux } from '../redux/rootReducer';
+import connector, { PropsFromRedux } from '../redux/connector';
 
 const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const settings = (
