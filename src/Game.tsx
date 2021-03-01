@@ -23,14 +23,17 @@ export type themes = 'Autumn' | 'Winter' | 'Spring';
 
 interface GameState {
   theme: themes;
+  darkMode: boolean;
 }
 
 const mapStatetoProps = (state: GameState) => ({
   theme: state.theme,
+  darkMode: state.darkMode,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   setTheme: (e: RadioChangeEvent) => dispatch({ type: 'setTheme', value: e.target.value }),
+  toggleDarkMode: () => dispatch({ type: 'toggleDarkMode' }),
 });
 
 const connector = connect(mapStatetoProps, mapDispatchToProps);
@@ -42,7 +45,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [stepNumber, setStepNumber] = useState<number>(0);
   const [squareSize, setSquareSize] = useState<sizes>('small');
-  const [darkMode, setDarkMode] = useState<boolean>(false);
   const [soundOptions, setSoundOptions] = useState({
     volume: 0.5,
     soundEnabled: true,
@@ -62,11 +64,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const handleWindowResize = () => {
     setWindowWidth(window.innerWidth);
     if (windowWidth < 440) setSquareSize('small');
-  };
-
-  const handleDarkModeChange = () => {
-    setDarkMode(!darkMode);
-    document.body.classList.toggle('dark');
   };
 
   const handleSoundToggle = () => {
@@ -190,8 +187,8 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
         <SettingsPopover
           themeSelect={props.theme}
           onThemeChange={props.setTheme}
-          isDark={darkMode}
-          onDarkModeChange={handleDarkModeChange}
+          isDark={props.darkMode}
+          onDarkModeChange={props.toggleDarkMode}
           isSound={soundOptions.soundEnabled}
           soundVolume={soundOptions.volume}
           onSoundToggle={handleSoundToggle}
