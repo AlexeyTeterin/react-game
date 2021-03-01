@@ -2,7 +2,7 @@ import React, {
   useEffect, useRef, useState,
 } from 'react';
 import {
-  Button, RadioChangeEvent,
+  Button,
 } from 'antd';
 import useSound from 'use-sound';
 import sounds from './assets/sounds';
@@ -12,9 +12,7 @@ import calcWonIndexes from './calcWonIndexes';
 import SettingsPopover from './SettingsPopover/SettingsPopover';
 import EMOJI, { convertToEmoji } from './emoji';
 import { connector, PropsFromRedux } from './redux/rootReducer';
-import {
-  emojiSet, emojiSetNames, XO,
-} from './types';
+import { XO } from './types';
 
 function isBoardFull(state: {squares: XO[]}) {
   return state.squares.indexOf(null) === -1;
@@ -24,7 +22,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const [history, setHistory] = useState([{ squares: Array(9).fill(null) }]);
   const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [stepNumber, setStepNumber] = useState<number>(0);
-  // const [squareSize, setSquareSize] = useState<sizes>('small');
   const [soundOptions, setSoundOptions] = useState({
     volume: 0.5,
     soundEnabled: true,
@@ -33,8 +30,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     volume: 0.5,
     soundEnabled: false,
   });
-  const [emojisName, setEmojisName] = useState<emojiSetNames>('simple');
-  const [emojis, setEmojis] = useState<emojiSet>(EMOJI[emojisName]);
   const [playClickSound] = useSound(sounds.click, soundOptions);
   const [playWinSound] = useSound(sounds.win, soundOptions);
   const [playMusic, { pause }] = useSound(sounds.music, musicOptions);
@@ -79,12 +74,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     }));
   };
 
-  const handleSymbolsChange = (event: RadioChangeEvent) => {
-    const targetSetName: emojiSetNames = event.target.value;
-    setEmojisName(targetSetName);
-    setEmojis(EMOJI[targetSetName]);
-  };
-
   const handleSquareClick = (i: number) => {
     const hist = history.slice(0, stepNumber + 1);
     const curr = hist[hist.length - 1];
@@ -114,11 +103,12 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     setStepNumber(0);
   };
 
-  const formatSquares = (squares: XO[]) => squares.map((el) => convertToEmoji(el, emojis));
+  const formatSquares = (squares: XO[]) => squares
+    .map((el) => convertToEmoji(el, EMOJI[props.emojis]));
 
   const current = history[stepNumber];
   const wonIndexes = calcWonIndexes(current.squares);
-  const whoIsNext = xIsNext ? emojis.x : emojis.o;
+  const whoIsNext = xIsNext ? EMOJI[props.emojis].x : EMOJI[props.emojis].o;
   const status = useRef('');
 
   const handleKeyDown = (e: KeyboardEvent) => {
@@ -143,7 +133,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   };
 
   if (wonIndexes) {
-    status.current = `Winner is ${convertToEmoji(current.squares[wonIndexes[0]], emojis)}`;
+    status.current = `Winner is ${convertToEmoji(current.squares[wonIndexes[0]], EMOJI[props.emojis])}`;
   } else if (isBoardFull(current)) {
     status.current = 'Draw game';
   } else {
@@ -163,8 +153,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     <div className={`game ${props.theme}`}>
       <div className="game-controls">
         <SettingsPopover
-          themeSelect={props.theme}
-          onThemeChange={props.setTheme}
           isSound={soundOptions.soundEnabled}
           soundVolume={soundOptions.volume}
           onSoundToggle={handleSoundToggle}
@@ -173,8 +161,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
           musicVolume={musicOptions.volume}
           onMusicToggle={handleMusicToggle}
           onMusicSliderChange={handleMusicVolumeChange}
-          emojiSetName={emojisName}
-          onSymbolsChange={handleSymbolsChange}
         />
         <Button type="default" ghost onClick={startNewGame}>
           New game

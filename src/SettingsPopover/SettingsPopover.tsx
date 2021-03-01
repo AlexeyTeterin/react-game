@@ -4,18 +4,15 @@ import {
   CloseOutlined, SettingOutlined, SoundOutlined,
 } from '@ant-design/icons';
 import {
-  Popover, Radio, RadioChangeEvent, Slider, Switch,
+  Popover, Radio, Slider, Switch,
 } from 'antd';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
 import { SwitchChangeEventHandler } from 'antd/lib/switch';
 import './SettingsPopover.scss';
 import { connector, PropsFromRedux } from '../redux/rootReducer';
-import { emojiSetNames, sizes, themes } from '../types';
 
 interface ISettings {
-  themeSelect: themes;
-  onThemeChange: (e: RadioChangeEvent) => void;
   isSound: boolean;
   soundVolume: number;
   onSoundToggle: SwitchChangeEventHandler;
@@ -24,8 +21,6 @@ interface ISettings {
   musicVolume: number;
   onMusicToggle: SwitchChangeEventHandler;
   onMusicSliderChange: (value: number) => void;
-  emojiSetName: emojiSetNames;
-  onSymbolsChange: (e: RadioChangeEvent) => void;
 }
 
 type Props = PropsFromRedux & ISettings;
@@ -36,8 +31,8 @@ const SettingsPopover: React.FC<Props> = (props: Props) => {
       <Title level={5}>Theme: </Title>
       <Radio.Group
         buttonStyle="solid"
-        value={props.themeSelect}
-        onChange={props.onThemeChange}
+        value={props.theme}
+        onChange={props.setTheme}
       >
         <Radio.Button className="Autumn" value="Autumn">Autumn</Radio.Button>
         <Radio.Button className="Winter" value="Winter">Winter</Radio.Button>
@@ -85,8 +80,8 @@ const SettingsPopover: React.FC<Props> = (props: Props) => {
       <Title level={5}>Symbols: </Title>
       <Radio.Group
         buttonStyle="outline"
-        value={props.emojiSetName}
-        onChange={props.onSymbolsChange}
+        value={props.emojis}
+        onChange={props.setEmojis}
       >
         <Radio.Button className="emojis" value="simple">❌ ⭕</Radio.Button>
         <Radio.Button className="emojis" value="nature">❄️ 🌸</Radio.Button>

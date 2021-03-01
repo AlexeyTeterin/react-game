@@ -1,18 +1,20 @@
 import { RadioChangeEvent } from 'antd';
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
-import { sizes, themes } from '../types';
+import { emojiSetNames, sizes, themes } from '../types';
 
 interface IGameState {
   theme: themes;
   darkMode: boolean;
   squareSize: sizes;
+  emojis: emojiSetNames;
 }
 
 const initialState: IGameState = {
   theme: 'Winter',
   darkMode: false,
   squareSize: 'medium',
+  emojis: 'simple',
 };
 
 export type PropsFromRedux = ConnectedProps<typeof connector>;
@@ -21,6 +23,7 @@ const mapStatetoProps = (state: IGameState) => ({
   theme: state.theme,
   darkMode: state.darkMode,
   squareSize: state.squareSize,
+  emojis: state.emojis,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -36,20 +39,24 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
       type: 'setSquareSize', value,
     });
   },
+  setEmojis: (e: RadioChangeEvent) => dispatch({
+    type: 'setEmojis', value: e.target.value,
+  }),
 });
 
 export const connector = connect(mapStatetoProps, mapDispatchToProps);
 
 export default function rootReducer(state: IGameState = initialState, action: any) {
-  const { theme, darkMode, squareSize } = state;
   switch (action.type) {
     case 'setTheme':
-      return { theme: action.value, darkMode, squareSize };
+      return { ...state, theme: action.value };
     case 'toggleDarkMode':
       document.body.classList.toggle('dark');
-      return { darkMode: !state.darkMode, theme, squareSize };
+      return { ...state, darkMode: !state.darkMode };
     case 'setSquareSize':
-      return { squareSize: action.value, theme, darkMode };
+      return { ...state, squareSize: action.value };
+    case 'setEmojis':
+      return { ...state, emojis: action.value };
     default:
   }
 
