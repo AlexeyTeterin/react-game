@@ -18,6 +18,7 @@ const mapStatetoProps = (state: IGameState) => ({
   musicVolume: state.musicVolume,
   history: state.history,
   stepNumber: state.stepNumber,
+  indexOfFocused: state.indexOfFocused,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -56,6 +57,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   }),
   setStepNumber: (num: number) => dispatch({
     type: 'setStepNumber', num,
+  }),
+  setFocused: (value: number) => dispatch({
+    type: 'setFocused', value,
   }),
 });
 

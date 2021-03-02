@@ -27,7 +27,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const [playClickSound] = useSound(sounds.click, soundOptions);
   const [playWinSound] = useSound(sounds.win, soundOptions);
   const [playMusic, { pause }] = useSound(sounds.music, musicOptions);
-  const [indexOfFocused, setFocused] = useState(-1);
   const [windowWidth, setWindowWidth] = useState(0);
 
   const handleWindowResize = () => {
@@ -78,18 +77,19 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const status = useRef('');
 
   const handleKeyDown = (e: any) => {
+    const index = props.indexOfFocused;
     switch (e.code) {
       case 'ArrowRight':
-        setFocused((prev) => (prev % 3 === 2 ? prev - 2 : prev + 1));
+        props.setFocused(index % 3 === 2 ? index - 2 : index + 1);
         break;
       case 'ArrowLeft':
-        setFocused((prev) => (prev % 3 === 0 ? prev + 2 : prev - 1));
+        props.setFocused(index % 3 === 0 ? index + 2 : index - 1);
         break;
       case 'ArrowDown':
-        setFocused((prev) => (prev > 5 ? prev - 6 : prev + 3));
+        props.setFocused(index > 5 ? index - 6 : index + 3);
         break;
       case 'ArrowUp':
-        setFocused((prev) => (prev < 3 ? prev + 6 : prev - 3));
+        props.setFocused(index < 3 ? index + 6 : index - 3);
         break;
       case 'Enter':
       case 'NumpadEnter':
@@ -101,7 +101,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
         startNewGame();
         break;
       case 'Backspace':
-        setFocused(-1);
+        props.setFocused(-1);
         break;
       default:
     }
@@ -147,7 +147,6 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
           squares={formatSquares(current.squares)}
           onClick={handleSquareClick}
           wonIndexes={wonIndexes}
-          indexOfFocused={indexOfFocused}
         />
       </div>
       <div className="game-history">

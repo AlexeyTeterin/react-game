@@ -14,6 +14,7 @@ interface IGameState {
   musicVolume: number
   history: history
   stepNumber: number
+  indexOfFocused: number
 }
 
 export default IGameState;

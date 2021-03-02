@@ -7,7 +7,6 @@ interface IBoard {
   squares: any[];
   onClick: any;
   wonIndexes: number[] | null;
-  indexOfFocused: number;
 }
 
 type Props = PropsFromRedux & IBoard;

@@ -14,6 +14,7 @@ const initialState: IGameState = savedState || {
   musicVolume: 0.5,
   history: [{ squares: Array(9).fill(null) }],
   stepNumber: 0,
+  indexOfFocused: -1,
 };
 
 export default initialState;

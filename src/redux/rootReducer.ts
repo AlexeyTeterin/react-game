@@ -26,6 +26,8 @@ export default function rootReducer(state: IGameState = initialState, action: an
       return { ...state, history: action.moves };
     case 'setStepNumber':
       return { ...state, stepNumber: action.num };
+    case 'setFocused':
+      return { ...state, indexOfFocused: action.value };
     default:
   }
 
