@@ -1,6 +1,8 @@
 import IGameState from './IGameState';
 
-const initialState: IGameState = {
+const savedState = JSON.parse(localStorage.XOGame);
+
+const initialState: IGameState = savedState || {
   theme: 'Winter',
   darkMode: false,
   squareSize: 'medium',

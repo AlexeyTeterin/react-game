@@ -119,6 +119,9 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   useEffect(() => {
     window.addEventListener('resize', handleWindowResize);
     window.addEventListener('keydown', handleKeyDown);
+
+    localStorage.setItem('XOGame', JSON.stringify(props));
+
     return () => {
       window.removeEventListener('resize', handleWindowResize);
       window.removeEventListener('keydown', handleKeyDown);
