@@ -5,8 +5,8 @@ import { Provider } from 'react-redux';
 import rootReducer from './redux/rootReducer';
 import 'normalize.css';
 import 'antd/dist/antd.css';
-import './index.scss';
-import Game from './Game';
+import './scss/index.scss';
+import Game from './components/Game';
 import reportWebVitals from './reportWebVitals';
 
 const store: any = createStore(rootReducer);

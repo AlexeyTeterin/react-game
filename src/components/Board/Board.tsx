@@ -1,5 +1,5 @@
 import React from 'react';
-import connector, { PropsFromRedux } from '../redux/connector';
+import connector, { PropsFromRedux } from '../../redux/connector';
 import Square from '../Square/Square';
 import './Board.scss';
 

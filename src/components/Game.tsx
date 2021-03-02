@@ -1,14 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import useSound from 'use-sound';
-import sounds from './assets/sounds';
-import Board from './Board/Board';
-import MovesDropdown from './MovesDropdown/MovesDropdown';
-import SettingsPopover from './SettingsPopover/SettingsPopover';
-import EMOJI from './emoji';
-import connector, { PropsFromRedux } from './redux/connector';
-import InfoPopover from './InfoPopover/InfoPopover';
-import * as controller from './controller';
+import sounds from '../assets/sounds';
+import EMOJI from '../emoji';
+import connector, { PropsFromRedux } from '../redux/connector';
+import * as controller from '../controller';
+import Board from '../components/Board/Board';
+import MovesDropdown from '../components/MovesDropdown/MovesDropdown';
+import InfoPopover from '../components/InfoPopover/InfoPopover';
+import SettingsPopover from '../components/SettingsPopover/SettingsPopover';
 
 const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const soundProps = { soundEnabled: props.isSound, volume: props.soundVolume };

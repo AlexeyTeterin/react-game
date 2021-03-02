@@ -1,5 +1,4 @@
 import * as React from 'react';
-import './MovesDropdown.scss';
 import { Dropdown, Menu, Button } from 'antd';
 import { UndoOutlined } from '@ant-design/icons';
 
