@@ -16,7 +16,6 @@ function isBoardFull(state: {squares: XO[]}) {
 }
 
 const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
-  const [stepNumber, setStepNumber] = useState<number>(0);
   const soundOptions = {
     soundEnabled: props.isSound,
     volume: props.soundVolume,
@@ -42,7 +41,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   }, [musicOptions.soundEnabled, pause, playMusic]);
 
   const handleSquareClick = (i: number) => {
-    const hist = props.history.slice(0, stepNumber + 1);
+    const hist = props.history.slice(0, props.stepNumber + 1);
     const curr = hist[hist.length - 1];
     const squares = [...curr.squares];
 
@@ -51,7 +50,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     squares[i] = props.xIsNext ? 'X' : 'O';
     props.setHistory(hist.concat([{ squares }]));
     props.setXIsNext(!props.xIsNext);
-    setStepNumber(hist.length);
+    props.setStepNumber(hist.length);
     playClickSound();
 
     if (calcWonIndexes(squares)) {
@@ -61,11 +60,11 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
 
   const jumpToMove = (move: number) => {
     props.setXIsNext((move % 2) === 0);
-    setStepNumber(move);
+    props.setStepNumber(move);
   };
 
   const startNewGame = () => {
-    setStepNumber(0);
+    props.setStepNumber(0);
     props.setHistory([{ squares: Array(9).fill(null) }]);
     props.setXIsNext(true);
   };
@@ -73,7 +72,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const formatSquares = (squares: XO[]) => squares
     .map((el) => convertToEmoji(el, EMOJI[props.emojis]));
 
-  const current = props.history[stepNumber];
+  const current = props.history[props.stepNumber];
   const wonIndexes = calcWonIndexes(current.squares);
   const whoIsNext = props.xIsNext ? EMOJI[props.emojis].x : EMOJI[props.emojis].o;
   const status = useRef('');

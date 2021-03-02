@@ -24,6 +24,8 @@ export default function rootReducer(state: IGameState = initialState, action: an
       return { ...state, musicVolume: action.value };
     case 'setHistory':
       return { ...state, history: action.moves };
+    case 'setStepNumber':
+      return { ...state, stepNumber: action.num };
     default:
   }
 

@@ -13,6 +13,7 @@ interface IGameState {
   isMusic: boolean
   musicVolume: number
   history: history
+  stepNumber: number
 }
 
 export default IGameState;

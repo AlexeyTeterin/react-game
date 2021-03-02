@@ -17,6 +17,7 @@ const mapStatetoProps = (state: IGameState) => ({
   isMusic: state.isMusic,
   musicVolume: state.musicVolume,
   history: state.history,
+  stepNumber: state.stepNumber,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -52,6 +53,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   }),
   setHistory: (moves: history) => dispatch({
     type: 'setHistory', moves,
+  }),
+  setStepNumber: (num: number) => dispatch({
+    type: 'setStepNumber', num,
   }),
 });
 

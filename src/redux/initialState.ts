@@ -1,6 +1,6 @@
 import IGameState from './IGameState';
 
-const savedState = JSON.parse(localStorage.XOGame);
+const savedState = localStorage.XOGame ? JSON.parse(localStorage.XOGame) : null;
 
 const initialState: IGameState = savedState || {
   theme: 'Winter',
@@ -13,6 +13,7 @@ const initialState: IGameState = savedState || {
   isMusic: false,
   musicVolume: 0.5,
   history: [{ squares: Array(9).fill(null) }],
+  stepNumber: 0,
 };
 
 export default initialState;
