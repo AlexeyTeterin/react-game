@@ -49,6 +49,10 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   }, [props.wonIndexes]);
 
   useEffect(() => {
+    document.body.classList.toggle('dark', props.darkMode);
+  }, [props.darkMode]);
+
+  useEffect(() => {
     localStorage.setItem('XOGame', JSON.stringify(props));
 
     window.addEventListener('resize', onWindowResize);

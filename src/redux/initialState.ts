@@ -24,7 +24,7 @@ const savedState = localStorage.XOGame ? JSON.parse(localStorage.XOGame) : null;
 
 const initialState: IGameState = savedState || {
   theme: 'Winter',
-  darkMode: true,
+  darkMode: false,
   squareSize: 'medium',
   emojis: 'simple',
   xIsNext: true,

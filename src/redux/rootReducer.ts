@@ -6,7 +6,6 @@ export default function rootReducer(state: IGameState = initialState, action: an
     case 'setTheme':
       return { ...state, theme: action.value };
     case 'toggleDarkMode':
-      document.body.classList.toggle('dark');
       return { ...state, darkMode: !state.darkMode };
     case 'setSquareSize':
       return { ...state, squareSize: action.value };
