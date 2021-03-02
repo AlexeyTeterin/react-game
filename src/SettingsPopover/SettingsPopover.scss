@@ -21,3 +21,21 @@
 .ant-radio-button-wrapper.Spring {
   background-color: $spring-primary !important;
 }
+
+.btn-settings {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.25s ease-out, opacity 0.1s;
+
+  &:hover {
+    transform: rotate(90deg);
+  }
+
+  &:active {
+    transform: rotate(90deg);
+    opacity: 0.7;
+  }
+}

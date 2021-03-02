@@ -9,6 +9,7 @@ import SettingsPopover from './SettingsPopover/SettingsPopover';
 import EMOJI, { convertToEmoji } from './emoji';
 import { XO } from './types';
 import connector, { PropsFromRedux } from './redux/connector';
+import InfoPopover from './InfoPopover/InfoPopover';
 
 function isBoardFull(state: {squares: XO[]}) {
   return state.squares.indexOf(null) === -1;
@@ -128,6 +129,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     <div className={`game ${props.theme}`}>
       <div className="game-controls">
         <SettingsPopover />
+        <InfoPopover />
         <Button
           type="default"
           ghost

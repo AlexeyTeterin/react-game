@@ -53,24 +53,6 @@ body {
   button {
     margin-bottom: 1rem;
   }
-
-  .settingsBtn {
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
-    font-size: 24px;
-    cursor: pointer;
-    transition: transform 0.25s ease-out, opacity 0.1s;
-
-    &:hover {
-      transform: rotate(90deg);
-    }
-
-    &:active {
-      transform: rotate(90deg);
-      opacity: 0.7;
-    }
-  }
 }
 
 .game-history {

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
 import {
-  CloseOutlined, SettingOutlined, SoundOutlined,
+  CloseOutlined, InfoCircleOutlined, SettingOutlined, SoundOutlined,
 } from '@ant-design/icons';
 import {
   Popover, Radio, Slider, Switch,
@@ -85,10 +85,10 @@ const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   return (
     <Popover
       content={settings}
-      trigger="click"
+      trigger="hover"
       placement="topRight"
     >
-      <SettingOutlined className="settingsBtn" />
+      <SettingOutlined className="btn-settings" />
     </Popover>
   );
 };
