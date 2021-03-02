@@ -6,6 +6,7 @@
 
   display: flex;
   justify-content: center;
+  transition: height 0.5s;
 
   &.large {
     height: $size-l;
