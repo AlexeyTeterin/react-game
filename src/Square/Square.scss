@@ -12,13 +12,7 @@
   transition: opacity 0.2s;
 
   &.winner {
-    animation: spin 1s ease-in-out infinite;
-
-    @keyframes spin {
-      50% {
-        font-size: 4rem;
-      }
-    }
+    animation: bounce 1s ease-in-out infinite;
   }
 
   &.fade {
@@ -84,6 +78,12 @@
   border-color: $spring-primary;
 }
 
+@keyframes bounce {
+  50% {
+    font-size: 4rem;
+  }
+}
+
 @keyframes shake {
   0% {
     -webkit-transform: translate(2px, 1px) rotate(0deg);
@@ -137,6 +137,6 @@
 
   50% {
     font-size: 4rem;
-    opacity: 0.75;
+    opacity: 0.5;
   }
 }

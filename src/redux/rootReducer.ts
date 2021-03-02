@@ -1,5 +1,5 @@
-import IGameState from './IGameState';
-import initialState from './initialState';
+import { calcWonIndexes } from '../controller';
+import initialState, { IGameState } from './initialState';
 
 export default function rootReducer(state: IGameState = initialState, action: any) {
   switch (action.type) {
@@ -28,6 +28,14 @@ export default function rootReducer(state: IGameState = initialState, action: an
       return { ...state, stepNumber: action.num };
     case 'setFocused':
       return { ...state, indexOfFocused: action.value };
+    case 'setWindowWidth':
+      return { ...state, windowWidth: window.innerWidth };
+    case 'setCurrentBoard':
+      return { ...state, currentBoard: state.history[state.stepNumber] };
+    case 'calcWonIndexes':
+      return {
+        ...state, wonIndexes: calcWonIndexes(state.currentBoard.squares),
+      };
     default:
   }
 

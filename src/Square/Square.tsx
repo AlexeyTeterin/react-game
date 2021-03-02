@@ -1,20 +1,20 @@
 import React, { SyntheticEvent } from 'react';
-import { sizes, themes, XO } from '../types';
+import { handleSquareClick } from '../controller';
+import EMOJI, { convertToEmoji } from '../emoji';
+import connector, { PropsFromRedux } from '../redux/connector';
 import './Square.scss';
 
-interface IProps {
-  value: XO,
-  size: sizes,
-  theme: themes,
-  onClick: Function,
-  id: any,
-  wonIndexes: number[] | null;
-  indexOfFocused: number;
-}
+interface ISquare { id: any}
 
-const Square: React.FC<IProps> = (props: IProps) => {
+type SquareProps = PropsFromRedux & ISquare;
+
+const Square: React.FC<SquareProps> = (props: SquareProps) => {
+  const currentSquare = props.currentBoard.squares[props.id];
+  const squareFormatted = convertToEmoji(currentSquare, EMOJI[props.emojis]);
+
   const handleAnimationEnd = (e: React.SyntheticEvent) => {
     e.currentTarget.classList.remove('fade', 'shake');
+    if (!props.wonIndexes) props.calcWonIndexes();
   };
 
   const handleClick = (event: SyntheticEvent) => {
@@ -25,31 +25,25 @@ const Square: React.FC<IProps> = (props: IProps) => {
       event.currentTarget.classList.add('fade');
     }
 
-    props.onClick(event);
+    handleSquareClick(props, props.id);
   };
 
-  const isWinner = () => {
-    if (props.wonIndexes?.includes(props.id)) return 'winner';
-    return '';
-  };
+  const winner = (props.wonIndexes?.includes(props.id)) ? 'winner' : '';
 
-  const isFocused = () => {
-    if (props.indexOfFocused === props.id) return 'focus';
-    return '';
-  };
+  const focus = (props.indexOfFocused === props.id) ? 'focus' : '';
 
   return (
     <button
       type="button"
-      className={`square ${props.size} ${props.theme} ${isWinner()} ${isFocused()}`}
+      className={`square ${props.squareSize} ${props.theme} ${winner} ${focus}`}
       onClick={handleClick}
       onMouseDown={(e) => e.preventDefault()}
       onAnimationEnd={handleAnimationEnd}
       id={`square${props.id}`}
     >
-      {props.value}
+      {squareFormatted}
     </button>
   );
 };
 
-export default Square;
+export default connector(Square);

@@ -3,27 +3,9 @@ import connector, { PropsFromRedux } from '../redux/connector';
 import Square from '../Square/Square';
 import './Board.scss';
 
-interface IBoard {
-  squares: any[];
-  onClick: any;
-  wonIndexes: number[] | null;
-}
-
-type Props = PropsFromRedux & IBoard;
-
-const Board: React.FC<Props> = (props: Props) => {
-  const { wonIndexes } = props;
-
+const Board: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const renderSquare = (i: number) => (
-    <Square
-      theme={props.theme}
-      id={i}
-      value={props.squares[i]}
-      onClick={() => props.onClick(i)}
-      size={props.squareSize}
-      wonIndexes={wonIndexes}
-      indexOfFocused={props.indexOfFocused}
-    />
+    <Square id={i} />
   );
 
   const rowClasses = `board-row ${props.squareSize}`;

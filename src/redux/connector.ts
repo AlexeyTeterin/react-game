@@ -1,8 +1,8 @@
 import { RadioChangeEvent } from 'antd';
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
-import IGameState from './IGameState';
 import { history } from '../types';
+import { IGameState } from './initialState';
 
 export type PropsFromRedux = ConnectedProps<typeof connector>;
 
@@ -19,6 +19,9 @@ const mapStatetoProps = (state: IGameState) => ({
   history: state.history,
   stepNumber: state.stepNumber,
   indexOfFocused: state.indexOfFocused,
+  windowWidth: state.windowWidth,
+  currentBoard: state.currentBoard,
+  wonIndexes: state.wonIndexes,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
@@ -60,6 +63,15 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   }),
   setFocused: (value: number) => dispatch({
     type: 'setFocused', value,
+  }),
+  setWindowWidth: () => dispatch({
+    type: 'setWindowWidth',
+  }),
+  setCurrentBoard: () => dispatch({
+    type: 'setCurrentBoard',
+  }),
+  calcWonIndexes: () => dispatch({
+    type: 'calcWonIndexes',
   }),
 });
 

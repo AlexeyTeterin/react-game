@@ -38,6 +38,10 @@
       "import/extensions": "off",
       "import/no-unresolved": "off",
       "no-use-before-define": "off",
+      "react-hooks/exhaustive-deps": "off",
+      "max-len": [1, {
+        "code": 100
+      }],
       "@typescript-eslint/no-use-before-define": [
         "error"
       ],

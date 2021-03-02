@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import * as React from 'react';
 import {
-  CloseOutlined, InfoCircleOutlined, SettingOutlined, SoundOutlined,
+  CloseOutlined, SettingOutlined, SoundOutlined,
 } from '@ant-design/icons';
 import {
   Popover, Radio, Slider, Switch,

@@ -1,129 +1,62 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import useSound from 'use-sound';
 import sounds from './assets/sounds';
 import Board from './Board/Board';
 import MovesDropdown from './MovesDropdown/MovesDropdown';
-import calcWonIndexes from './calcWonIndexes';
 import SettingsPopover from './SettingsPopover/SettingsPopover';
-import EMOJI, { convertToEmoji } from './emoji';
-import { XO } from './types';
+import EMOJI from './emoji';
 import connector, { PropsFromRedux } from './redux/connector';
 import InfoPopover from './InfoPopover/InfoPopover';
-
-function isBoardFull(state: {squares: XO[]}) {
-  return state.squares.indexOf(null) === -1;
-}
+import * as controller from './controller';
 
 const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
-  const soundOptions = {
-    soundEnabled: props.isSound,
-    volume: props.soundVolume,
-  };
-  const musicOptions = {
-    soundEnabled: props.isMusic,
-    volume: props.musicVolume,
-  };
-  const [playClickSound] = useSound(sounds.click, soundOptions);
-  const [playWinSound] = useSound(sounds.win, soundOptions);
-  const [playMusic, { pause }] = useSound(sounds.music, musicOptions);
-  const [windowWidth, setWindowWidth] = useState(0);
-
-  const handleWindowResize = () => {
-    setWindowWidth(window.innerWidth);
-    if (windowWidth < 440) props.setSquareSize('small');
-  };
-
-  useEffect(() => {
-    if (musicOptions.soundEnabled) playMusic();
-    else pause();
-  }, [musicOptions.soundEnabled, pause, playMusic]);
-
-  const handleSquareClick = (i: number) => {
-    const hist = props.history.slice(0, props.stepNumber + 1);
-    const curr = hist[hist.length - 1];
-    const squares = [...curr.squares];
-
-    if (calcWonIndexes(squares) || squares[i]) return;
-
-    squares[i] = props.xIsNext ? 'X' : 'O';
-    props.setHistory(hist.concat([{ squares }]));
-    props.setXIsNext(!props.xIsNext);
-    props.setStepNumber(hist.length);
-    playClickSound();
-
-    if (calcWonIndexes(squares)) {
-      playWinSound();
-    }
-  };
-
-  const jumpToMove = (move: number) => {
-    props.setXIsNext((move % 2) === 0);
-    props.setStepNumber(move);
-  };
-
-  const startNewGame = () => {
-    props.setStepNumber(0);
-    props.setHistory([{ squares: Array(9).fill(null) }]);
-    props.setXIsNext(true);
-  };
-
-  const formatSquares = (squares: XO[]) => squares
-    .map((el) => convertToEmoji(el, EMOJI[props.emojis]));
-
-  const current = props.history[props.stepNumber];
-  const wonIndexes = calcWonIndexes(current.squares);
-  const whoIsNext = props.xIsNext ? EMOJI[props.emojis].x : EMOJI[props.emojis].o;
+  const soundProps = { soundEnabled: props.isSound, volume: props.soundVolume };
+  const musicProps = { soundEnabled: props.isMusic, volume: props.musicVolume };
+  const isCurrentBoardFull = props.currentBoard.squares.indexOf(null) === -1;
+  const emojiX = EMOJI[props.emojis].x;
+  const emojiO = EMOJI[props.emojis].o;
+  const whoIsNext = props.xIsNext ? emojiX : emojiO;
   const status = useRef('');
 
-  const handleKeyDown = (e: any) => {
-    const index = props.indexOfFocused;
-    switch (e.code) {
-      case 'ArrowRight':
-        props.setFocused(index % 3 === 2 ? index - 2 : index + 1);
-        break;
-      case 'ArrowLeft':
-        props.setFocused(index % 3 === 0 ? index + 2 : index - 1);
-        break;
-      case 'ArrowDown':
-        props.setFocused(index > 5 ? index - 6 : index + 3);
-        break;
-      case 'ArrowUp':
-        props.setFocused(index < 3 ? index + 6 : index - 3);
-        break;
-      case 'Enter':
-      case 'NumpadEnter':
-      case 'Space':
-        document.querySelector('.focus')?.dispatchEvent(new Event('click', { bubbles: true }));
-        break;
-      case 'KeyN':
-      case 'Delete':
-        startNewGame();
-        break;
-      case 'Backspace':
-        props.setFocused(-1);
-        break;
-      default:
-    }
-  };
+  const [playClickSound] = useSound(sounds.click, soundProps);
+  const [playWinSound] = useSound(sounds.win, soundProps);
+  const [playMusic, { pause }] = useSound(sounds.music, musicProps);
 
-  if (wonIndexes) {
-    status.current = `Winner is ${convertToEmoji(current.squares[wonIndexes[0]], EMOJI[props.emojis])}`;
-  } else if (isBoardFull(current)) {
+  const onKeyDown = controller.handleKeyDown.bind(null, props);
+  const onWindowResize = controller.handleWindowResize.bind(null, props);
+
+  if (props.wonIndexes) {
+    const winner = props.xIsNext ? emojiO : emojiX;
+    status.current = `Winner is ${winner}`;
+  } else if (isCurrentBoardFull) {
     status.current = 'Draw game';
   } else {
     status.current = `Next player: ${whoIsNext}`;
   }
 
   useEffect(() => {
-    window.addEventListener('resize', handleWindowResize);
-    window.addEventListener('keydown', handleKeyDown);
+    if (musicProps.soundEnabled) playMusic();
+    else pause();
+  }, [musicProps.soundEnabled, pause, playMusic]);
 
+  useEffect(() => {
+    playClickSound();
+  }, [props.currentBoard]);
+
+  useEffect(() => {
+    if (props.wonIndexes) playWinSound();
+  }, [props.wonIndexes]);
+
+  useEffect(() => {
     localStorage.setItem('XOGame', JSON.stringify(props));
 
+    window.addEventListener('resize', onWindowResize);
+    window.addEventListener('keydown', onKeyDown);
+
     return () => {
-      window.removeEventListener('resize', handleWindowResize);
-      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', onWindowResize);
+      window.removeEventListener('keydown', onKeyDown);
     };
   });
 
@@ -135,7 +68,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
         <Button
           type="default"
           ghost
-          onClick={startNewGame}
+          onClick={() => controller.handleNewGameClick(props)}
           onMouseDown={(e) => e.preventDefault()}
         >
           New game
@@ -143,14 +76,13 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
         <div>{status.current}</div>
       </div>
       <div className="game-board">
-        <Board
-          squares={formatSquares(current.squares)}
-          onClick={handleSquareClick}
-          wonIndexes={wonIndexes}
-        />
+        <Board />
       </div>
       <div className="game-history">
-        <MovesDropdown history={props.history} onItemClick={jumpToMove} />
+        <MovesDropdown
+          history={props.history}
+          onItemClick={(i: number) => controller.jumpToMove(props, i)}
+        />
       </div>
     </div>
   );
