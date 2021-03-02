@@ -23,8 +23,8 @@ export interface IGameState {
 const savedState = localStorage.XOGame ? JSON.parse(localStorage.XOGame) : null;
 
 const initialState: IGameState = savedState || {
-  theme: 'Winter',
-  darkMode: false,
+  theme: 'Autumn',
+  darkMode: true,
   squareSize: 'medium',
   emojis: 'simple',
   xIsNext: true,
