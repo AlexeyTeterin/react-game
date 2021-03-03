@@ -2,20 +2,28 @@ import { PropsFromRedux } from './redux/connector';
 import { XO } from './types';
 
 export const handleKeyDown = (props: PropsFromRedux, e: any) => {
-  const index = props.indexOfFocused;
+  const activeIndex = props.indexOfFocused;
+
+  const { boardSize: rows } = props;
+  const lastColumnIndex = rows - 1;
+  const lastRowIndex = rows * lastColumnIndex;
 
   switch (e.code) {
     case 'ArrowRight':
-      props.setFocused(index % 3 === 2 ? index - 2 : index + 1);
+      props.setFocused(activeIndex % rows === lastColumnIndex
+        ? activeIndex - lastColumnIndex : activeIndex + 1);
       break;
     case 'ArrowLeft':
-      props.setFocused(index % 3 === 0 ? index + 2 : index - 1);
+      props.setFocused(activeIndex % rows === 0
+        ? activeIndex + lastColumnIndex : activeIndex - 1);
       break;
     case 'ArrowDown':
-      props.setFocused(index > 5 ? index - 6 : index + 3);
+      props.setFocused(activeIndex >= lastRowIndex
+        ? activeIndex - lastRowIndex : activeIndex + rows);
       break;
     case 'ArrowUp':
-      props.setFocused(index < 3 ? index + 6 : index - 3);
+      props.setFocused(activeIndex < rows
+        ? activeIndex + lastRowIndex : activeIndex - rows);
       break;
     case 'Enter':
     case 'NumpadEnter':
