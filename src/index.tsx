@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import Footer from './components/Footer/Footer';
 import rootReducer from './redux/rootReducer';
 import 'normalize.css';
 import 'antd/dist/antd.css';
@@ -14,6 +15,7 @@ const store: any = createStore(rootReducer);
 ReactDOM.render(
   <Provider store={store}>
     <Game />
+    <Footer />
   </Provider>,
   document.getElementById('root'),
 );
