@@ -9,7 +9,7 @@
   text-align: center;
   cursor: pointer;
   text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-  transition: opacity 0.2s, width 0.5s, height 0.5s, font 0.5s;
+  transition: opacity 0.2s, width 0.5s, height 0.5s, font 0.5s, background 0.5s, border 0.5s;
 
   &.winner {
     animation: bounce 1s ease-in-out infinite;
