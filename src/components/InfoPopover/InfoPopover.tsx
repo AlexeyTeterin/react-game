@@ -41,7 +41,7 @@ const InfoPopover: React.FC = () => {
   return (
     <Popover
       content={settings}
-      trigger="hover"
+      trigger="click"
       placement="topLeft"
     >
       <InfoCircleOutlined className="btn-info" />

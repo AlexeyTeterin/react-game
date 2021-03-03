@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Dropdown, Menu, Button } from 'antd';
 import { UndoOutlined } from '@ant-design/icons';
+import './MovesDropdown.scss';
 
 interface IProps {
   history: { squares: any[]; }[];
@@ -15,7 +16,11 @@ export default function MovesDropdown(props: IProps) {
         ? `Go to move # ${move}`
         : 'Go to game start';
       return (
-        <Menu.Item key={key} onClick={() => props.onItemClick(move)}>
+        <Menu.Item
+          className="menu-li"
+          key={key}
+          onClick={() => props.onItemClick(move)}
+        >
           {desc}
         </Menu.Item>
       );
@@ -28,12 +33,10 @@ export default function MovesDropdown(props: IProps) {
       overlay={movesMenu}
       trigger={['click']}
       placement="bottomCenter"
-      className="MovesDropdown"
     >
       <Button type="dashed" ghost icon={<UndoOutlined />}>
         Moves history
       </Button>
-
     </Dropdown>
   );
 }

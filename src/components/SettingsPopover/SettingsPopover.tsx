@@ -101,7 +101,7 @@ const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   return (
     <Popover
       content={settings}
-      trigger="hover"
+      trigger="click"
       placement="topRight"
     >
       <SettingOutlined className="btn-settings" />
