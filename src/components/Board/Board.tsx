@@ -8,14 +8,12 @@ const Board: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     <Square id={i} />
   );
 
-  const numOfSquares = props.boardSize ** 2;
-
-  const renderSquares = () => new Array(numOfSquares).fill(0)
+  const renderSquares = (num: number) => new Array(num).fill(0)
     .map((el, index: number) => renderSquare(index));
 
   return (
     <>
-      {renderSquares()}
+      {renderSquares(props.boardSize ** 2)}
     </>
   );
 };

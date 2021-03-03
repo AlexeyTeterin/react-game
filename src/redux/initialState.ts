@@ -39,7 +39,7 @@ const initialState: IGameState = savedState || {
   windowWidth: window.innerWidth,
   currentBoard: { squares: Array(9).fill(null) },
   wonIndexes: null,
-  boardSize: 3,
+  boardSize: 4,
 };
 
 export default initialState;

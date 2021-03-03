@@ -35,6 +35,8 @@ export default function rootReducer(state: IGameState = initialState, action: an
       return {
         ...state, wonIndexes: calcWonIndexes(state.currentBoard.squares),
       };
+    case 'setBoardSize':
+      return { ...state, boardSize: action.value };
     default:
   }
 

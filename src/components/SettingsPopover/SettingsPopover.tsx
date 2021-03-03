@@ -4,14 +4,22 @@ import {
   CloseOutlined, SettingOutlined, SoundOutlined,
 } from '@ant-design/icons';
 import {
-  Popover, Radio, Slider, Switch,
+  Popover, Radio, RadioChangeEvent, Slider, Switch,
 } from 'antd';
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
 import './SettingsPopover.scss';
 import connector, { PropsFromRedux } from '../../redux/connector';
+import { handleNewGameClick } from '../../controller';
 
 const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
+  const handleBoardSizeChange = (e: RadioChangeEvent) => {
+    const boardSize = e.target.value;
+    props.setBoardSize(e);
+    props.setHistory([{ squares: Array(boardSize ** 2).fill(null) }]);
+    props.setCurrentBoard();
+  };
+
   const settings = (
     <div className="settings">
       <Title level={5}>Theme: </Title>
@@ -75,6 +83,12 @@ const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
       </Radio.Group>
       <p />
       <Title level={5}>Board size: </Title>
+      <Radio.Group onChange={handleBoardSizeChange} value={props.boardSize}>
+        <Radio value={3} onClick={() => handleNewGameClick(props)}>3</Radio>
+        <Radio value={4} onClick={() => handleNewGameClick(props)}>4</Radio>
+      </Radio.Group>
+      <p />
+      <Title level={5}>Square size: </Title>
       <Radio.Group onChange={props.setSquareSize} value={props.squareSize}>
         <Radio value="small">Small</Radio>
         <Radio value="medium">Medium</Radio>

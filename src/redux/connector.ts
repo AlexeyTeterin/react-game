@@ -74,6 +74,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   calcWonIndexes: () => dispatch({
     type: 'calcWonIndexes',
   }),
+  setBoardSize: (e: RadioChangeEvent) => dispatch({
+    type: 'setBoardSize', value: e.target.value,
+  }),
 });
 
 const connector = connect(mapStatetoProps, mapDispatchToProps);

@@ -41,7 +41,7 @@ export const handleWindowResize = (props: PropsFromRedux) => {
 export const handleNewGameClick = (props: PropsFromRedux) => {
   props.setXIsNext(true);
   props.setStepNumber(0);
-  props.setHistory([{ squares: Array(9).fill(null) }]);
+  props.setHistory([{ squares: Array(props.boardSize ** 2).fill(null) }]);
   props.setCurrentBoard();
   props.calcWonIndexes();
 };
@@ -68,7 +68,20 @@ export const handleSquareClick = (props: PropsFromRedux, i: number) => {
 };
 
 export const calcWonIndexes = (squares: XO[]) => {
-  const lines = [
+  const lines4 = [
+    [0, 1, 2, 3],
+    [4, 5, 6, 7],
+    [8, 9, 10, 11],
+    [12, 13, 14, 15],
+    [0, 4, 8, 12],
+    [1, 5, 9, 13],
+    [2, 6, 10, 14],
+    [3, 7, 11, 15],
+    [0, 5, 10, 15],
+    [3, 6, 9, 12],
+  ];
+
+  const lines3 = [
     [0, 1, 2],
     [3, 4, 5],
     [6, 7, 8],
@@ -78,11 +91,29 @@ export const calcWonIndexes = (squares: XO[]) => {
     [0, 4, 8],
     [2, 4, 6],
   ];
-  for (let i = 0; i < lines.length; i += 1) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return [a, b, c];
-    }
+
+  const boardSize = Math.sqrt(squares.length);
+
+  switch (boardSize) {
+    case 3:
+      for (let i = 0; i < lines3.length; i += 1) {
+        const [a, b, c] = lines3[i];
+        if (squares[a]
+          && squares[a] === squares[b]
+          && squares[a] === squares[c]) return [a, b, c];
+      }
+      break;
+    case 4:
+      for (let i = 0; i < lines4.length; i += 1) {
+        const [a, b, c, d] = lines4[i];
+        if (squares[a]
+          && squares[a] === squares[b]
+          && squares[a] === squares[c]
+          && squares[a] === squares[d]) return [a, b, c, d];
+      }
+      break;
+    default:
   }
+
   return null;
 };
