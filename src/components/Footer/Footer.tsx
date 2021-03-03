@@ -3,7 +3,7 @@ import './Footer.scss';
 
 const Footer: React.FC = () => {
   const rsSchoolLink = (
-    <a className="rsschool" href="https://rs.school/js/" target="_blank" rel="noreferrer"> </a>
+    <a className="rsschool" href="https://rs.school/" target="_blank" rel="noreferrer"> </a>
   );
 
   const githubLink = (
