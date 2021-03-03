@@ -8,25 +8,14 @@ const Board: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     <Square id={i} />
   );
 
-  const rowClasses = `board-row ${props.squareSize}`;
+  const numOfSquares = props.boardSize ** 2;
+
+  const renderSquares = () => new Array(numOfSquares).fill(0)
+    .map((el, index: number) => renderSquare(index));
 
   return (
     <>
-      <div className={rowClasses}>
-        {renderSquare(0)}
-        {renderSquare(1)}
-        {renderSquare(2)}
-      </div>
-      <div className={rowClasses}>
-        {renderSquare(3)}
-        {renderSquare(4)}
-        {renderSquare(5)}
-      </div>
-      <div className={rowClasses}>
-        {renderSquare(6)}
-        {renderSquare(7)}
-        {renderSquare(8)}
-      </div>
+      {renderSquares()}
     </>
   );
 };

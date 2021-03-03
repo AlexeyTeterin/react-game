@@ -18,6 +18,7 @@ export interface IGameState {
   windowWidth: number
   currentBoard: boardState
   wonIndexes: number[] | null
+  boardSize: number
 }
 
 const savedState = localStorage.XOGame ? JSON.parse(localStorage.XOGame) : null;
@@ -38,6 +39,7 @@ const initialState: IGameState = savedState || {
   windowWidth: window.innerWidth,
   currentBoard: { squares: Array(9).fill(null) },
   wonIndexes: null,
+  boardSize: 3,
 };
 
 export default initialState;

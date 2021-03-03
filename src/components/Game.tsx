@@ -64,6 +64,10 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
     };
   });
 
+  const boardStyle = {
+    gridTemplateColumns: `repeat(${props.boardSize}, 1fr)`,
+  };
+
   return (
     <div className={`game ${props.theme}`}>
       <div className="game-controls">
@@ -79,7 +83,10 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
         </Button>
         <div>{status.current}</div>
       </div>
-      <div className="game-board">
+      <div
+        style={boardStyle}
+        className="game-board"
+      >
         <Board />
       </div>
       <div className="game-history">

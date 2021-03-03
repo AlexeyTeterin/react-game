@@ -1,22 +1,3 @@
-@import '../../scss/sizes.scss';
-
-.board-row {
-  margin-bottom: -1px;
-  padding: 0;
-
-  display: flex;
-  justify-content: center;
-  transition: height 0.5s;
-
-  &.large {
-    height: $size-l;
-  }
-
-  &.medium {
-    height: $size-m;
-  }
-
-  &.small {
-    height: $size-s;
-  }
+.game-board {
+  display: grid;
 }

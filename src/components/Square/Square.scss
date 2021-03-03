@@ -41,19 +41,6 @@
     font-size: 2.5rem;
   }
 
-  &:nth-child(3) {
-    border-right: transparent;
-  }
-
-  &:first-child {
-    border-left: transparent;
-  }
-
-  &:nth-child(2) {
-    border-left: transparent;
-    border-right: transparent;
-  }
-
   &:focus {
     outline: none;
   }

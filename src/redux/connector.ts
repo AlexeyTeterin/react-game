@@ -22,6 +22,7 @@ const mapStatetoProps = (state: IGameState) => ({
   windowWidth: state.windowWidth,
   currentBoard: state.currentBoard,
   wonIndexes: state.wonIndexes,
+  boardSize: state.boardSize,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
