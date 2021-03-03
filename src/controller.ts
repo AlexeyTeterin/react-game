@@ -35,7 +35,9 @@ export const handleKeyDown = (props: PropsFromRedux, e: any) => {
 
 export const handleWindowResize = (props: PropsFromRedux) => {
   props.setWindowWidth();
-  if (props.windowWidth < 440) props.setSquareSize('small');
+  if (props.windowWidth < 700) props.setSquareSize('medium');
+  if (props.windowWidth < 600) props.setSquareSize('small');
+  if (props.windowWidth < 500) props.setSquareSize('extraSmall');
 };
 
 export const handleNewGameClick = (props: PropsFromRedux) => {
@@ -67,51 +69,68 @@ export const handleSquareClick = (props: PropsFromRedux, i: number) => {
   props.setCurrentBoard();
 };
 
+const calcWinningLines = (boardSize: number) => {
+  const empty = new Array(boardSize ** 2).fill(null).map((el, index) => index);
+
+  const horizontalLines = [];
+
+  for (let i = 0; i < boardSize; i += 1) {
+    horizontalLines[i] = empty.slice((i * boardSize), (i * boardSize) + boardSize);
+  }
+
+  const verticalLines: number[][] = [];
+
+  for (let i = 0; i < boardSize; i += 1) {
+    verticalLines[i] = [];
+    horizontalLines.forEach((el) => {
+      verticalLines[i].push(el[i]);
+    });
+  }
+
+  const diagonalLine1 = [];
+  const diagonalLine2 = [];
+
+  for (let i = 0; i < boardSize; i += 1) {
+    diagonalLine1[i] = horizontalLines[i][i];
+    diagonalLine2[i] = horizontalLines[i][boardSize - 1 - i];
+  }
+
+  return horizontalLines.concat(verticalLines, [diagonalLine1], [diagonalLine2]);
+};
+
+const winningLines3 = calcWinningLines(3);
+const winningLines4 = calcWinningLines(4);
+const winningLines5 = calcWinningLines(5);
+
 export const calcWonIndexes = (squares: XO[]) => {
-  const lines4 = [
-    [0, 1, 2, 3],
-    [4, 5, 6, 7],
-    [8, 9, 10, 11],
-    [12, 13, 14, 15],
-    [0, 4, 8, 12],
-    [1, 5, 9, 13],
-    [2, 6, 10, 14],
-    [3, 7, 11, 15],
-    [0, 5, 10, 15],
-    [3, 6, 9, 12],
-  ];
-
-  const lines3 = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-
   const boardSize = Math.sqrt(squares.length);
+  const equals = (line: XO[]) => line.every((el) => el !== null && el === line[0]);
 
   switch (boardSize) {
     case 3:
-      for (let i = 0; i < lines3.length; i += 1) {
-        const [a, b, c] = lines3[i];
-        if (squares[a]
-          && squares[a] === squares[b]
-          && squares[a] === squares[c]) return [a, b, c];
+      for (let i = 0; i < winningLines3.length; i += 1) {
+        const [a, b, c] = winningLines3[i];
+        const currLine = [squares[a], squares[b], squares[c]];
+        if (equals(currLine)) return [a, b, c];
       }
       break;
+
     case 4:
-      for (let i = 0; i < lines4.length; i += 1) {
-        const [a, b, c, d] = lines4[i];
-        if (squares[a]
-          && squares[a] === squares[b]
-          && squares[a] === squares[c]
-          && squares[a] === squares[d]) return [a, b, c, d];
+      for (let i = 0; i < winningLines4.length; i += 1) {
+        const [a, b, c, d] = winningLines4[i];
+        const currLine = [squares[a], squares[b], squares[c], squares[d]];
+        if (equals(currLine)) return [a, b, c, d];
       }
       break;
+
+    case 5:
+      for (let i = 0; i < winningLines5.length; i += 1) {
+        const [a, b, c, d, e] = winningLines5[i];
+        const currLine = [squares[a], squares[b], squares[c], squares[d], squares[e]];
+        if (equals(currLine)) return [a, b, c, d, e];
+      }
+      break;
+
     default:
   }
 

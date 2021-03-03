@@ -5,7 +5,7 @@ import './Board.scss';
 
 const Board: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const renderSquare = (i: number) => (
-    <Square id={i} />
+    <Square id={i} key={i} />
   );
 
   const renderSquares = (num: number) => new Array(num).fill(0)

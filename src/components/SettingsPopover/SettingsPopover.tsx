@@ -86,13 +86,15 @@ const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
       <Radio.Group onChange={handleBoardSizeChange} value={props.boardSize}>
         <Radio value={3} onClick={() => handleNewGameClick(props)}>3</Radio>
         <Radio value={4} onClick={() => handleNewGameClick(props)}>4</Radio>
+        <Radio value={5} onClick={() => handleNewGameClick(props)}>5</Radio>
       </Radio.Group>
       <p />
       <Title level={5}>Square size: </Title>
       <Radio.Group onChange={props.setSquareSize} value={props.squareSize}>
-        <Radio value="small">Small</Radio>
-        <Radio value="medium">Medium</Radio>
-        <Radio value="large">Large</Radio>
+        <Radio value="extraSmall">XS</Radio>
+        <Radio value="small">S</Radio>
+        <Radio value="medium">M</Radio>
+        <Radio value="large">L</Radio>
       </Radio.Group>
     </div>
   );

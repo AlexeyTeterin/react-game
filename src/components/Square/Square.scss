@@ -41,6 +41,20 @@
     font-size: 2.5rem;
   }
 
+  &.extraSmall {
+    width: $size-xs;
+    height: $size-xs;
+    font-size: 2rem;
+
+    &.fade {
+      animation: xsFade 0.25s ease-out 1;
+    }
+
+    &.winner {
+      animation: xsBounce 1s ease-in-out infinite;
+    }
+  }
+
   &:focus {
     outline: none;
   }
@@ -68,6 +82,12 @@
 @keyframes bounce {
   50% {
     font-size: 4rem;
+  }
+}
+
+@keyframes xsBounce {
+  50% {
+    font-size: 2.5rem;
   }
 }
 
@@ -124,6 +144,17 @@
 
   50% {
     font-size: 4rem;
+    opacity: 0.5;
+  }
+}
+
+@keyframes xsFade {
+  0% {
+    font-size: 0rem;
+  }
+
+  50% {
+    font-size: 2.5rem;
     opacity: 0.5;
   }
 }
