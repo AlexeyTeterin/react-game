@@ -1,15 +1,26 @@
 @import './palette.scss';
+@import './sizes.scss';
 
 @mixin shadow($color) {
   box-shadow: 0px 0px 16px -4px $color;
 }
 
 @mixin applyTheme($primary, $secondary, $select) {
-  background-color: $primary;
+  background: linear-gradient($primary, $secondary);
   @include shadow($select);
+}
 
-  .game-history {
-    background-color: $secondary;
+@mixin show {
+  animation: show 0.5s ease-in;
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
   }
 }
 
@@ -38,9 +49,11 @@ body {
 .game {
   margin: 1rem;
   width: fit-content;
-  // border: 1px solid $bg-light;
+  border-radius: $border-radius;
 
-  transition: background 0.5s;
+  transition: opacity 0.5s;
+
+  @include show;
 }
 
 .game-controls {
@@ -64,8 +77,9 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
-
-  transition: background 0.5s;
+  border-bottom-right-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+  background-color: transparent;
 }
 
 .game.Autumn {
