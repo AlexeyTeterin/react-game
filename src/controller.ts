@@ -45,7 +45,7 @@ export const handleWindowResize = (props: PropsFromRedux) => {
   props.setWindowWidth();
   if (props.windowWidth < 700) props.setSquareSize('medium');
   if (props.windowWidth < 600) props.setSquareSize('small');
-  if (props.windowWidth < 500) props.setSquareSize('extraSmall');
+  if (props.windowWidth < 520 && props.boardSize > 4) props.setSquareSize('extraSmall');
 };
 
 export const handleNewGameClick = (props: PropsFromRedux) => {
