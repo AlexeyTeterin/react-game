@@ -1,6 +1,6 @@
 # Tic-tac-toe
 
-<img align="right" src="https://user-images.githubusercontent.com/59282193/109811312-778cb180-7c4c-11eb-8535-843600ece5c3.png" />
+<img align="right" src="https://user-images.githubusercontent.com/59282193/109812310-bbcc8180-7c4d-11eb-8847-a3be28d41401.png" />
 
 Данная игра разработана в рамках задания [**react-game**](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/react/react-game.md)
 
