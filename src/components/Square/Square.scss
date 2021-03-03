@@ -2,7 +2,8 @@
 @import '../../scss/sizes.scss';
 
 .square {
-  border: 1px solid;
+  border: none;
+  margin: 1px;
   font-weight: bold;
   line-height: 34px;
   padding: 0;
@@ -66,17 +67,14 @@
 
 .game.Autumn .square {
   background-color: $autumn-bright;
-  border-color: $autumn-primary;
 }
 
 .game.Winter .square {
   background-color: $winter-bright;
-  border-color: $winter-primary;
 }
 
 .game.Spring .square {
   background-color: $spring-bright;
-  border-color: $spring-primary;
 }
 
 @keyframes bounce {
