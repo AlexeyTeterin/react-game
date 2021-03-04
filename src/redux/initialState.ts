@@ -32,14 +32,14 @@ const initialState: IGameState = savedState || {
   isSound: true,
   soundVolume: 0.5,
   isMusic: false,
-  musicVolume: 0.5,
+  musicVolume: 0.25,
   history: [{ squares: Array(9).fill(null) }],
   stepNumber: 0,
   indexOfFocused: -1,
   windowWidth: window.innerWidth,
   currentBoard: { squares: Array(9).fill(null) },
   wonIndexes: null,
-  boardSize: 4,
+  boardSize: 3,
 };
 
 export default initialState;
