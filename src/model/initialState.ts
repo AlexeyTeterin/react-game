@@ -1,6 +1,6 @@
 import {
   themes, sizes, emojiSetNames, boardState, history,
-} from '../types';
+} from './types';
 
 export interface IGameState {
   theme: themes

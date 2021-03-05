@@ -1,33 +1,34 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import useSound from 'use-sound';
-import sounds from '../assets/sounds';
-import EMOJI from '../emoji';
-import connector, { PropsFromRedux } from '../redux/connector';
-import * as controller from '../controller';
+import SOUNDS from '../model/sounds';
+import connector, { PropsFromRedux } from '../model/connector';
+import * as controller from '../controller/handlers';
 import Board from '../components/Board/Board';
 import MovesDropdown from '../components/MovesDropdown/MovesDropdown';
 import InfoPopover from '../components/InfoPopover/InfoPopover';
 import SettingsPopover from '../components/SettingsPopover/SettingsPopover';
+import './Game.scss';
+import EMOJI from '../model/emoji';
+import convertToEmoji from '../controller/convertToEmoji';
 
 const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const soundProps = { soundEnabled: props.isSound, volume: props.soundVolume };
   const musicProps = { soundEnabled: props.isMusic, volume: props.musicVolume };
   const isCurrentBoardFull = props.currentBoard.squares.indexOf(null) === -1;
-  const emojiX = EMOJI[props.emojis].x;
-  const emojiO = EMOJI[props.emojis].o;
-  const whoIsNext = props.xIsNext ? emojiX : emojiO;
+  const activeEmojiSet = EMOJI[props.emojis];
+  const whoIsNext = convertToEmoji(props.xIsNext ? 'X' : 'O', activeEmojiSet);
   const status = useRef('');
 
-  const [playClickSound] = useSound(sounds.click, soundProps);
-  const [playWinSound] = useSound(sounds.win, soundProps);
-  const [playMusic, { pause }] = useSound(sounds.music, musicProps);
+  const [playClickSound] = useSound(SOUNDS.click, soundProps);
+  const [playWinSound] = useSound(SOUNDS.win, soundProps);
+  const [playMusic, { pause }] = useSound(SOUNDS.music, musicProps);
 
   const onKeyDown = controller.handleKeyDown.bind(null, props);
   const onWindowResize = controller.handleWindowResize.bind(null, props);
 
   if (props.wonIndexes) {
-    const winner = props.xIsNext ? emojiO : emojiX;
+    const winner = convertToEmoji(props.xIsNext ? 'O' : 'X', activeEmojiSet);
     status.current = `Winner is ${winner}`;
   } else if (isCurrentBoardFull) {
     status.current = 'Draw game';
@@ -92,7 +93,7 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
       <div className="game-history">
         <MovesDropdown
           history={props.history}
-          onItemClick={(i: number) => controller.jumpToMove(props, i)}
+          onItemClick={(i: number) => controller.handleMoveSelect(props, i)}
         />
       </div>
     </div>

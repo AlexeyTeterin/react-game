@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import Footer from './components/Footer/Footer';
-import rootReducer from './redux/rootReducer';
+import rootReducer from './model/rootReducer';
 import 'normalize.css';
 import 'antd/dist/antd.css';
-import './scss/index.scss';
+import './index.scss';
 import Game from './components/Game';
 import reportWebVitals from './reportWebVitals';
 

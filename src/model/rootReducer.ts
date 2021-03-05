@@ -1,4 +1,4 @@
-import { calcWonIndexes } from '../controller';
+import calcWonIndexes from '../controller/calcWonIndexes';
 import initialState, { IGameState } from './initialState';
 
 export default function rootReducer(state: IGameState = initialState, action: any) {

@@ -1,7 +1,8 @@
 import React, { SyntheticEvent } from 'react';
-import { handleSquareClick } from '../../controller';
-import EMOJI, { convertToEmoji } from '../../emoji';
-import connector, { PropsFromRedux } from '../../redux/connector';
+import EMOJI from '../../model/emoji';
+import convertToEmoji from '../../controller/convertToEmoji';
+import { handleSquareClick } from '../../controller/handlers';
+import connector, { PropsFromRedux } from '../../model/connector';
 import './Square.scss';
 
 interface ISquare { id: any}
@@ -10,6 +11,7 @@ type SquareProps = PropsFromRedux & ISquare;
 
 const Square: React.FC<SquareProps> = (props: SquareProps) => {
   const currentSquare = props.currentBoard.squares[props.id];
+
   const squareFormatted = convertToEmoji(currentSquare, EMOJI[props.emojis]);
 
   const handleAnimationEnd = (e: React.SyntheticEvent) => {

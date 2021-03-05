@@ -9,8 +9,8 @@ import {
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
 import './SettingsPopover.scss';
-import connector, { PropsFromRedux } from '../../redux/connector';
-import { handleNewGameClick } from '../../controller';
+import connector, { PropsFromRedux } from '../../model/connector';
+import { handleNewGameClick } from '../../controller/handlers';
 
 const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const handleBoardSizeChange = (e: RadioChangeEvent) => {

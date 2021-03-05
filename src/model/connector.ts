@@ -1,7 +1,7 @@
 import { RadioChangeEvent } from 'antd';
 import { connect, ConnectedProps } from 'react-redux';
 import { Dispatch } from 'redux';
-import { history } from '../types';
+import { history } from './types';
 import { IGameState } from './initialState';
 
 export type PropsFromRedux = ConnectedProps<typeof connector>;
