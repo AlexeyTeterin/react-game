@@ -1,8 +1,8 @@
 import React, { SyntheticEvent } from 'react';
-import EMOJI from '../../model/emoji';
 import convertToEmoji from '../../controller/convertToEmoji';
 import { handleSquareClick } from '../../controller/handlers';
 import connector, { PropsFromRedux } from '../../model/connector';
+import { EMOJI } from '../../model/constants';
 import './Square.scss';
 
 interface ISquare { id: any}

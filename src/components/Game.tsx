@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import useSound from 'use-sound';
-import SOUNDS from '../model/sounds';
 import connector, { PropsFromRedux } from '../model/connector';
 import * as controller from '../controller/handlers';
 import Board from '../components/Board/Board';
@@ -9,8 +8,8 @@ import MovesDropdown from '../components/MovesDropdown/MovesDropdown';
 import InfoPopover from '../components/InfoPopover/InfoPopover';
 import SettingsPopover from '../components/SettingsPopover/SettingsPopover';
 import './Game.scss';
-import EMOJI from '../model/emoji';
 import convertToEmoji from '../controller/convertToEmoji';
+import { EMOJI, SOUNDS } from '../model/constants';
 
 const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   const soundProps = { soundEnabled: props.isSound, volume: props.soundVolume };
