@@ -7,3 +7,5 @@
 Дата выполнения: `03.03.2021` / Дедлайн: `03.03.2021`
 
 ### Деплой: [teterin-tic-tac-toe.netlify.app](https://teterin-tic-tac-toe.netlify.app/)
+  
+`TypeScript` `React` `Redux` `Ant Design`
