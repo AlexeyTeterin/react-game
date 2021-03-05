@@ -1,6 +1,6 @@
 # Tic-tac-toe
 
-Tic-tac-toe game on React/TypeScript with:  
+A simple tic-tac-toe game with:  
 - moves history,  
 - keyboard controls,  
 - customizable UI, board size and audio settings.
