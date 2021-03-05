@@ -15,4 +15,4 @@ Done: `03.03.2021` / Deadline: `03.03.2021`
 [teterin-tic-tac-toe.netlify.app](https://teterin-tic-tac-toe.netlify.app/)
 
 ### Stack:
-`TypeScript` `React` `Redux` `Ant Design`
+`TypeScript` `React` `Redux` `MVC` `Ant Design`
