@@ -1,11 +1,11 @@
+<img align="right" src="https://user-images.githubusercontent.com/59282193/109812310-bbcc8180-7c4d-11eb-8847-a3be28d41401.png" />
+
 # Tic-tac-toe
 
 A simple tic-tac-toe game with:  
 - moves history,  
 - keyboard controls,  
 - customizable UI, board size and audio settings.
-
-<img align="right" src="https://user-images.githubusercontent.com/59282193/109812310-bbcc8180-7c4d-11eb-8847-a3be28d41401.png" />
 
 ### Task: [**react-game**](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/react/react-game.md)
 
