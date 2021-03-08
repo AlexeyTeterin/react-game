@@ -1,0 +1,17 @@
+.btn-info {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.1s ease-out, opacity 0.1s;
+
+  &:hover {
+    transform: scale(1.15);
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+}

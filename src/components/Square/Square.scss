@@ -1,0 +1,148 @@
+@import '../../scss/palette.scss';
+@import '../../scss/sizes.scss';
+
+.square {
+  border: none;
+  margin: 1px;
+  font-weight: bold;
+  line-height: 34px;
+  padding: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+
+  text-align: center;
+  cursor: pointer;
+  text-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  transition: opacity 0.2s, width 0.5s, height 0.5s, font 0.5s, background 0.5s, border 0.5s;
+
+  &.winner {
+    animation: bounce 1s ease-in-out infinite;
+  }
+
+  &.fade {
+    animation: fade 0.25s ease-out 1;
+  }
+
+  &.shake {
+    animation: shake 0.25s ease-out 1;
+  }
+
+  &.large {
+    width: $size-l;
+    height: $size-l;
+    font-size: 3.5rem;
+  }
+
+  &.medium {
+    width: $size-m;
+    height: $size-m;
+    font-size: 3rem;
+  }
+
+  &.small {
+    width: $size-s;
+    height: $size-s;
+    font-size: 2.5rem;
+  }
+
+  &.extraSmall {
+    width: $size-xs;
+    height: $size-xs;
+    font-size: 2rem;
+
+    &.fade {
+      animation: xsFade 0.25s ease-out 1;
+    }
+
+    &.winner {
+      animation: xsBounce 1s ease-in-out infinite;
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &.focus {
+    opacity: 0.8;
+  }
+}
+
+@keyframes bounce {
+  50% {
+    font-size: 4rem;
+  }
+}
+
+@keyframes xsBounce {
+  50% {
+    font-size: 2.5rem;
+  }
+}
+
+@keyframes shake {
+  0% {
+    -webkit-transform: translate(2px, 1px) rotate(0deg);
+  }
+
+  10% {
+    -webkit-transform: translate(-1px, -2px) rotate(-1deg);
+  }
+
+  20% {
+    -webkit-transform: translate(-3px, 0px) rotate(1deg);
+  }
+
+  30% {
+    -webkit-transform: translate(0px, 2px) rotate(0deg);
+  }
+
+  40% {
+    -webkit-transform: translate(1px, -1px) rotate(1deg);
+  }
+
+  50% {
+    -webkit-transform: translate(-1px, 2px) rotate(-1deg);
+  }
+
+  60% {
+    -webkit-transform: translate(-3px, 1px) rotate(0deg);
+  }
+
+  70% {
+    -webkit-transform: translate(2px, 1px) rotate(-1deg);
+  }
+
+  80% {
+    -webkit-transform: translate(-1px, -1px) rotate(1deg);
+  }
+
+  90% {
+    -webkit-transform: translate(2px, 2px) rotate(0deg);
+  }
+
+  100% {
+    -webkit-transform: translate(1px, -2px) rotate(-1deg);
+  }
+}
+
+@keyframes fade {
+  0% {
+    font-size: 0rem;
+  }
+
+  50% {
+    font-size: 4rem;
+    opacity: 0.5;
+  }
+}
+
+@keyframes xsFade {
+  0% {
+    font-size: 0rem;
+  }
+
+  50% {
+    font-size: 2.5rem;
+    opacity: 0.5;
+  }
+}

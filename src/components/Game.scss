@@ -1,0 +1,75 @@
+@import '../scss/palette.scss';
+@import '../scss/sizes.scss';
+
+@mixin shadow($color) {
+  box-shadow: 0px 0px 16px -4px $color;
+}
+
+@mixin applyTheme($primary, $secondary, $select) {
+  background: linear-gradient($primary, $secondary);
+  @include shadow($select);
+}
+
+@mixin show {
+  animation: show 0.5s ease-in;
+
+  @keyframes show {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+}
+
+.game {
+  margin: auto;
+  width: fit-content;
+  border-radius: $border-radius;
+
+  transition: opacity 0.5s;
+
+  @include show;
+}
+
+.game-controls {
+  padding: 1rem;
+
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  color: white;
+
+  button {
+    margin-bottom: 1rem;
+  }
+}
+
+.game-history {
+  padding: 1rem;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  border-bottom-right-radius: $border-radius;
+  border-bottom-left-radius: $border-radius;
+  background-color: transparent;
+}
+
+.game.Autumn {
+  @include applyTheme($autumn-primary, $autumn-secondary, $autumn-select);
+}
+
+.game.Winter {
+  @include applyTheme($winter-primary, $winter-secondary, $winter-select);
+}
+
+.game.Spring {
+  @include applyTheme($spring-primary, $spring-secondary, $spring-select);
+}
