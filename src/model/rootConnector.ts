@@ -4,7 +4,7 @@ import { Dispatch } from 'redux';
 import { history } from './types';
 import { IGameState } from './initialState';
 
-export type PropsFromRedux = ConnectedProps<typeof connector>;
+export type GameProps = ConnectedProps<typeof rootConnector>;
 
 const mapStatetoProps = (state: IGameState) => ({
   theme: state.theme,
@@ -27,58 +27,58 @@ const mapStatetoProps = (state: IGameState) => ({
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
   setTheme: (e: RadioChangeEvent) => dispatch({
-    type: 'setTheme', value: e.target.value,
+    type: 'SET_THEME', value: e.target.value,
   }),
   toggleDarkMode: () => dispatch({
-    type: 'toggleDarkMode',
+    type: 'TOGGLE_DARK_MODE',
   }),
   setSquareSize: (e: RadioChangeEvent | string) => {
     const value = typeof e === 'string' ? e : e.target.value;
     return dispatch({
-      type: 'setSquareSize', value,
+      type: 'SET_SQUARE_SIZE', value,
     });
   },
   setEmojis: (e: RadioChangeEvent) => dispatch({
-    type: 'setEmojis', value: e.target.value,
+    type: 'SET_EMOJIS', value: e.target.value,
   }),
   setXIsNext: (isNext: boolean) => dispatch({
-    type: 'setXIsNext', value: isNext,
+    type: 'SET_X_IS_NEXT', value: isNext,
   }),
   toggleSound: () => dispatch({
-    type: 'toggleSound',
+    type: 'TOGGLE_SOUND',
   }),
   setSoundVolume: (value: number) => dispatch({
-    type: 'setSoundVolume', value: value / 100,
+    type: 'SET_SOUND_VOLUME', value: value / 100,
   }),
   toggleMusic: () => dispatch({
-    type: 'toggleMusic',
+    type: 'TOGGLE_MUSIC',
   }),
   setMusicVolume: (value: number) => dispatch({
-    type: 'setMusicVolume', value: value / 100,
+    type: 'SET_MUSIC_VOLUME', value: value / 100,
   }),
   setHistory: (moves: history) => dispatch({
-    type: 'setHistory', moves,
+    type: 'SET_HISTORY', moves,
   }),
   setStepNumber: (num: number) => dispatch({
-    type: 'setStepNumber', num,
+    type: 'SET_STEP_NUMBER', num,
   }),
   setFocused: (value: number) => dispatch({
-    type: 'setFocused', value,
+    type: 'SET_FOCUSED', value,
   }),
   setWindowWidth: () => dispatch({
-    type: 'setWindowWidth',
+    type: 'SET_WINDOW_WIDTH',
   }),
   setCurrentBoard: () => dispatch({
-    type: 'setCurrentBoard',
+    type: 'SET_CURRENT_BOARD',
   }),
   calcWonIndexes: () => dispatch({
-    type: 'calcWonIndexes',
+    type: 'CALC_WON_INDEXES',
   }),
-  setBoardSize: (e: RadioChangeEvent) => dispatch({
-    type: 'setBoardSize', value: e.target.value,
+  setBoardSize: (value: number) => dispatch({
+    type: 'SET_BOARD_SIZE', value,
   }),
 });
 
-const connector = connect(mapStatetoProps, mapDispatchToProps);
+const rootConnector = connect(mapStatetoProps, mapDispatchToProps);
 
-export default connector;
+export default rootConnector;

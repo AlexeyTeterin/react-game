@@ -1,7 +1,8 @@
-import { PropsFromRedux } from '../model/connector';
+import { SquareProps } from '../components/Square/Square';
+import { GameProps } from '../model/rootConnector';
 import calcWonIndexes from './calcWonIndexes';
 
-export const handleKeyDown = (props: PropsFromRedux, e: any) => {
+export const handleKeyDown = (props: GameProps, e: any) => {
   const activeIndex = props.indexOfFocused;
 
   const { boardSize: rows } = props;
@@ -41,14 +42,14 @@ export const handleKeyDown = (props: PropsFromRedux, e: any) => {
   }
 };
 
-export const handleWindowResize = (props: PropsFromRedux) => {
+export const handleWindowResize = (props: GameProps) => {
   props.setWindowWidth();
   if (props.windowWidth < 700) props.setSquareSize('medium');
   if (props.windowWidth < 600) props.setSquareSize('small');
   if (props.windowWidth < 520 && props.boardSize > 4) props.setSquareSize('extraSmall');
 };
 
-export const handleNewGameClick = (props: PropsFromRedux) => {
+export const handleNewGameClick = (props: GameProps) => {
   props.setXIsNext(true);
   props.setStepNumber(0);
   props.setHistory([{ squares: Array(props.boardSize ** 2).fill(null) }]);
@@ -56,14 +57,14 @@ export const handleNewGameClick = (props: PropsFromRedux) => {
   props.calcWonIndexes();
 };
 
-export const handleMoveSelect = (props: PropsFromRedux, move: number) => {
+export const handleMoveSelect = (props: GameProps, move: number) => {
   props.setXIsNext((move % 2) === 0);
   props.setStepNumber(move);
   props.setCurrentBoard();
   props.calcWonIndexes();
 };
 
-export const handleSquareClick = (props: PropsFromRedux, i: number) => {
+export const handleSquareClick = (props: SquareProps, i: number) => {
   const hist = props.history.slice(0, props.stepNumber + 1);
   const curr = hist[hist.length - 1];
   const squares = [...curr.squares];

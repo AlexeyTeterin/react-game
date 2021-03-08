@@ -1,11 +1,14 @@
 import React from 'react';
-import connector, { PropsFromRedux } from '../../model/connector';
+import { connect, ConnectedProps } from 'react-redux';
+import { IGameState } from '../../model/initialState';
 import Square from '../Square/Square';
 import './Board.scss';
 
-const Board: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
+type BoardProps = ConnectedProps<typeof boardConnector>;
+
+const Board: React.FC<BoardProps> = (props: BoardProps) => {
   const renderSquare = (i: number) => (
-    <Square id={i} key={i} />
+    <Square id={i} key={`square${i}`} />
   );
 
   const renderSquares = (num: number) => new Array(num).fill(0)
@@ -18,4 +21,10 @@ const Board: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   );
 };
 
-export default connector(Board);
+const mapState = (state: IGameState) => ({
+  boardSize: state.boardSize,
+});
+
+const boardConnector = connect(mapState, ({}));
+
+export default boardConnector(Board);

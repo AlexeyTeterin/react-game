@@ -3,39 +3,39 @@ import initialState, { IGameState } from './initialState';
 
 export default function rootReducer(state: IGameState = initialState, action: any) {
   switch (action.type) {
-    case 'setTheme':
+    case 'SET_THEME':
       return { ...state, theme: action.value };
-    case 'toggleDarkMode':
+    case 'TOGGLE_DARK_MODE':
       return { ...state, darkMode: !state.darkMode };
-    case 'setSquareSize':
+    case 'SET_SQUARE_SIZE':
       return { ...state, squareSize: action.value };
-    case 'setEmojis':
+    case 'SET_EMOJIS':
       return { ...state, emojis: action.value };
-    case 'setXIsNext':
+    case 'SET_X_IS_NEXT':
       return { ...state, xIsNext: action.value };
-    case 'toggleSound':
+    case 'TOGGLE_SOUND':
       return { ...state, isSound: !state.isSound };
-    case 'setSoundVolume':
+    case 'SET_SOUND_VOLUME':
       return { ...state, soundVolume: action.value };
-    case 'toggleMusic':
+    case 'TOGGLE_MUSIC':
       return { ...state, isMusic: !state.isMusic };
-    case 'setMusicVolume':
+    case 'SET_MUSIC_VOLUME':
       return { ...state, musicVolume: action.value };
-    case 'setHistory':
+    case 'SET_HISTORY':
       return { ...state, history: action.moves };
-    case 'setStepNumber':
+    case 'SET_STEP_NUMBER':
       return { ...state, stepNumber: action.num };
-    case 'setFocused':
+    case 'SET_FOCUSED':
       return { ...state, indexOfFocused: action.value };
-    case 'setWindowWidth':
+    case 'SET_WINDOW_WIDTH':
       return { ...state, windowWidth: window.innerWidth };
-    case 'setCurrentBoard':
+    case 'SET_CURRENT_BOARD':
       return { ...state, currentBoard: state.history[state.stepNumber] };
-    case 'calcWonIndexes':
+    case 'CALC_WON_INDEXES':
       return {
         ...state, wonIndexes: calcWonIndexes(state.currentBoard.squares),
       };
-    case 'setBoardSize':
+    case 'SET_BOARD_SIZE':
       return { ...state, boardSize: action.value };
     default:
   }

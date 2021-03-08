@@ -1,17 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import { Button } from 'antd';
 import useSound from 'use-sound';
-import connector, { PropsFromRedux } from '../model/connector';
 import * as controller from '../controller/handlers';
 import Board from '../components/Board/Board';
 import MovesDropdown from '../components/MovesDropdown/MovesDropdown';
 import InfoPopover from '../components/InfoPopover/InfoPopover';
 import SettingsPopover from '../components/SettingsPopover/SettingsPopover';
-import './Game.scss';
 import convertToEmoji from '../controller/convertToEmoji';
 import { EMOJI, SOUNDS } from '../model/constants';
+import rootConnector, { GameProps } from '../model/rootConnector';
+import './Game.scss';
 
-const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
+const App: React.FC<GameProps> = (props: GameProps) => {
   const soundProps = { soundEnabled: props.isSound, volume: props.soundVolume };
   const musicProps = { soundEnabled: props.isMusic, volume: props.musicVolume };
   const isCurrentBoardFull = props.currentBoard.squares.indexOf(null) === -1;
@@ -84,8 +84,8 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
         <div>{status.current}</div>
       </div>
       <div
-        style={boardStyle}
         className="game-board"
+        style={boardStyle}
       >
         <Board />
       </div>
@@ -99,4 +99,4 @@ const App: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   );
 };
 
-export default connector(App);
+export default rootConnector(App);

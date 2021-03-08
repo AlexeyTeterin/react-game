@@ -9,13 +9,13 @@ import {
 import { FaMoon, FaSun } from 'react-icons/fa';
 import Title from 'antd/lib/typography/Title';
 import './SettingsPopover.scss';
-import connector, { PropsFromRedux } from '../../model/connector';
+import rootConnector, { GameProps } from '../../model/rootConnector';
 import { handleNewGameClick } from '../../controller/handlers';
 
-const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
+const SettingsPopover: React.FC<GameProps> = (props: GameProps) => {
   const handleBoardSizeChange = (e: RadioChangeEvent) => {
     const boardSize = e.target.value;
-    props.setBoardSize(e);
+    props.setBoardSize(boardSize);
     props.setHistory([{ squares: Array(boardSize ** 2).fill(null) }]);
     props.setCurrentBoard();
   };
@@ -109,4 +109,4 @@ const SettingsPopover: React.FC<PropsFromRedux> = (props: PropsFromRedux) => {
   );
 };
 
-export default connector(SettingsPopover);
+export default rootConnector(SettingsPopover);

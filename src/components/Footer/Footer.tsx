@@ -1,30 +1,29 @@
 import React from 'react';
 import './Footer.scss';
 
-const Footer: React.FC = () => {
-  const rsSchoolLink = (
-    <a className="rsschool" href="https://rs.school/" target="_blank" rel="noreferrer"> </a>
-  );
-
-  const githubLink = (
-    <a href="https://github.com/AlexeyTeterin" target="_blank" rel="noreferrer">Alexey Teterin</a>
-  );
-
-  const copyRight = (
+const Footer: React.FC = () => (
+  <footer className="footer">
+    <a
+      className="rsschool"
+      href="https://rs.school/"
+      target="_blank"
+      rel="noreferrer"
+    >
+      {' '}
+    </a>
     <div>
       &copy;
       2021
       coded by&nbsp;
-      {githubLink}
+      <a
+        href="https://github.com/AlexeyTeterin"
+        target="_blank"
+        rel="noreferrer"
+      >
+        Alexey Teterin
+      </a>
     </div>
-  );
-
-  return (
-    <footer className="footer">
-      {rsSchoolLink}
-      {copyRight}
-    </footer>
-  );
-};
+  </footer>
+);
 
 export default Footer;

@@ -9,7 +9,7 @@ interface IProps {
 }
 
 export default function MovesDropdown(props: IProps) {
-  const movesMenu = () => {
+  const movesMenu = React.useCallback(() => {
     const moves = props.history.map((step, move: number) => {
       const key = `move#${move}`;
       const desc = move
@@ -26,7 +26,7 @@ export default function MovesDropdown(props: IProps) {
       );
     });
     return (<Menu>{moves}</Menu>);
-  };
+  }, [props.history, props.onItemClick]);
 
   return (
     <Dropdown
