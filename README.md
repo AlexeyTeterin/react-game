@@ -11,7 +11,7 @@ A simple tic-tac-toe game with:
 
 Done: `03.03.2021` / Deadline: `03.03.2021`
 
-### Deploy:
+### Demo:
 [teterin-tic-tac-toe.netlify.app](https://teterin-tic-tac-toe.netlify.app/)
 
 ### Stack:
